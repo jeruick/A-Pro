@@ -1,5 +1,5 @@
 <?php
-$conexion = mysqli_connect("localhost","root","","bdyamazon"); // HAY QUE CAMBIAR EL NOMBRE DE LA BASE DE DATOS AQUI
+$conexion = mysqli_connect("localhost","root","","apro"); // HAY QUE CAMBIAR EL NOMBRE DE LA BASE DE DATOS AQUI
 //session_start();
 
 //if($_SESSION["id_usuario"]){

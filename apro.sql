@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4
+-- version 4.1.6
 -- http://www.phpmyadmin.net
 --
--- Servidor: localhost
--- Tiempo de generación: 26-07-2014 a las 23:56:51
--- Versión del servidor: 5.6.12-log
--- Versión de PHP: 5.4.16
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 04-08-2014 a las 06:30:33
+-- Versión del servidor: 5.6.16
+-- Versión de PHP: 5.5.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,10 +17,8 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de datos: `bdyamazon`
+-- Base de datos: `apro`
 --
-CREATE DATABASE IF NOT EXISTS `apro` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `apro`;
 
 -- --------------------------------------------------------
 
@@ -41,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `articulo` (
   `id_usuario` int(10) NOT NULL,
   `id_categoria` int(3) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=62 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=63 ;
 
 --
 -- Volcado de datos para la tabla `articulo`
@@ -107,7 +105,8 @@ INSERT INTO `articulo` (`id`, `nombre_articulo`, `marca`, `precio_unidad`, `cant
 (58, 'Silla de jardin', 'DecoArt', 1200, 1, 5, 0, '', 'sillapiscina.png', 2, 5),
 (59, 'Silla_metalica_hogar', 'DecoArt', 2300, 1, 5, 0, '', 'Silla_metal.png', 3, 5),
 (60, 'Camara_digital_fotografica ', 'Sony', 5400, 1, 5, 0, '', 'sonycibershot.png', 2, 19),
-(61, 'Teatro en Casa', 'LG', 6500, 1, 5, 0, '', 'teatroenCasa.png', 3, 7);
+(61, 'Teatro en Casa', 'LG', 6500, 1, 5, 0, '', 'teatroenCasa.png', 3, 7),
+(62, 'lsdjflsjdf', 'sldjflsjfd', 12, 23, 1, 0, 'sdfsdfsdfsdfsdfsdf', 'bad3.jpg', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -120,14 +119,13 @@ CREATE TABLE IF NOT EXISTS `categoria` (
   `nombre_categoria` varchar(50) NOT NULL,
   `descripcion` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Volcado de datos para la tabla `categoria`
 --
 
 INSERT INTO `categoria` (`id`, `nombre_categoria`, `descripcion`) VALUES
-
 (1, 'Casa y jardín', ''),
 (2, 'Electrónica', ''),
 (3, 'Equipamiento deportivo', ''),
@@ -330,8 +328,7 @@ INSERT INTO `pais` (`id`, `nombre_pais`, `codigo_telefonico`) VALUES
 
 CREATE TABLE IF NOT EXISTS `usuario` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `nombres` varchar(50) NOT NULL,
-  `apellidos` varchar(50) NOT NULL,
+  `nombre_usuario` varchar(150) NOT NULL,
   `fecha_nacimiento` date NOT NULL,
   `sexo` varchar(10) NOT NULL,
   `numero_telefonico` varchar(15) NOT NULL,
@@ -340,16 +337,21 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `foto_usuario` longtext NOT NULL,
   `id_ciudad` int(3) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `nombres`, `apellidos`, `fecha_nacimiento`, `sexo`, `numero_telefonico`, `correo_electronico`, `contrasena`, `foto_usuario`, `id_ciudad`) VALUES
-(1, 'Sindy Danely', 'Garcia', '1991-05-06', 'femenino', '22460424', 'sindy@gmail.com', 'sindydanely', '', 29),
-(3, 'Edson Froylan ', 'Bonilla', '1990-06-11', 'Masculino', '121221212', 'edson_bonilla@hotmail.com', '1234', '', 11),
-(4, 'Erick Alexander', 'Zelaya', '1991-12-11', 'Masculino', '223232323', 'erick_zelaya@gmail.com', '12345', '', 12);
+INSERT INTO `usuario` (`id`, `nombre_usuario`, `fecha_nacimiento`, `sexo`, `numero_telefonico`, `correo_electronico`, `contrasena`, `foto_usuario`, `id_ciudad`) VALUES
+(1, 'Sindy Danely Garcia', '1991-05-06', 'Femenino', '22460424', 'sindy_danely@gmail.com', '0186b112fb0406696ff3b32386866a09', 'sindy.jpg', 29),
+(2, 'Edson Froylan Bonilla', '1990-05-06', 'Masculino', '22551043', 'edson_bonilla@hotmail.com', '822d163155fcfc5f88618dae47d4a38d', 'edson.jpg', 11),
+(3, 'Erick Alexander Zelaya', '1991-12-24', 'Masculino', '22304585', 'erick_zelaya@yahoo.com', '5b7179cff6a78c5e43ea6acaefb21431', 'erick.jpg', 12),
+(4, 'Ana Izaguirre', '1991-02-02', 'Femenino', '22697845', 'ana_izaguirre@gmail.com', 'c5c5ef2caf75f0756da2a9b38d586782', 'ana.jpg', 31),
+(5, 'Walter White', '1991-07-17', 'Masculino', '2134234234', 'walt@theman.com', '81dc9bdb52d04dc20036dbd8313ed055', 'Breaking-Bad.jpg', 3),
+(6, 'jesse', '2014-08-13', 'male', '23423423', 'jesse@bitch.com', '90635c5468bc06690b11dc44b3407d52', '', 79),
+(7, 'jsldkfjsdjf', '2014-08-05', 'male', '', 'jsdlfj@gamicl.com', '2c8f31b20ae2b21a22af52cf636f55da', '', 0),
+(8, 'erick', '2014-08-12', 'male', '34564532', 'erick@gamic.com', 'cff8e56d2ddc80cb63757b7609ecf6ef', '', 38);
 
 -- --------------------------------------------------------
 
