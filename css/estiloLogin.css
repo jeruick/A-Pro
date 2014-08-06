@@ -126,49 +126,27 @@
     outline: none;
 }
 
-.form-1 .submit {
+.form-1 .submit1 {
     /* Size and position */
-    width: 65px;
-    height: 65px;
-    position: absolute;
-    top: 55px;
-    right: -8px;
-    padding: 10px;
+    width: 50px;
+    height: 50px;
+	margin: 0;
+    position: relative;
+    padding: 0px;
     z-index: 2;
-
     /* Styles */
     background: #ffffff;
     border-radius: 50%;
-    box-shadow: 
-        0 0 2px rgba(0,0,0,0.1),
-        0 3px 2px rgba(0,0,0,0.1),
-        inset 0 -3px 2px rgba(0,0,0,0.2);
-}
-
-.form-1 .submit:after {
-    /* Size and position */
-    content: "";
-    width: 10px;
-    height: 10px;
-    position: absolute;
-    top: -2px;
-    left: 30px;
-
-    /* Styles */
-    background: #ffffff;
-    
-    /* Other masks trick */
-    box-shadow: 0 62px white, -32px 31px white;
 }
 
 .form-1 button {
     /* Size and position */
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 80%;
     margin-top: -1px;
 
     /* Icon styles */
-    font-size: 1.4em;
+    font-size: 1em;
     line-height: 1.75;
     color: white;
 
