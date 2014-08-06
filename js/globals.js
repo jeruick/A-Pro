@@ -91,11 +91,11 @@ $(document).ready(function(){
                   if(html != "")
                   {       
                      $("#coincidencias").html(html);  
-                     $("#coincidencias").show('slow');
+                     $("#coincidencias").show('fast');
                   }
                   else
                   {
-                    $("#coincidencias").hide('slow');
+                    $("#coincidencias").hide('fast');
                   }
 
                 }   

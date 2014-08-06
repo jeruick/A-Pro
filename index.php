@@ -54,8 +54,9 @@
               </div><!-- /btn-group -->
               <input type="text" name="text" class="form-control" style="width:400px;" autocomplete="off">
               <span class="input-group-btn" style="width:100px;">
-                <button id="searchButton"  class="btn btn-default" type="submit" style="height:40px;"><img src="icons/search.png"></button>
+              <button id="searchButton"  class="btn btn-default" type="submit" style="height:40px;"><img src="icons/search.png"></button>
               </span>
+              <div id="coincidencias"></div>
             </div><!-- /input-group -->
           </div><!-- /.col-lg-6 -->
           </form>
@@ -101,7 +102,7 @@
       </div>
       <div id="shopping_cart"><p style="padding-left:10px; margin: 0;position:relative; top: 12px;">0</p><a href="#" style="margin: 0;padding:0;"><img src="icons/cart.png"></a></div>
   </div>
-  <div id="coincidencias"></div>
+  
 
 	<div id="contenedor" >
 	    <div id="myCarousel" class="carousel slide" style="width:80%; margin: 0 auto;">

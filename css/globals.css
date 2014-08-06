@@ -107,9 +107,9 @@
       box-shadow: rgba(0,0,0,0.2) 0px 0px 10px;
       display: none;
       position: absolute;
-      right: 415px;
-      top: 84px;
-      width: 32.5%;
+      right: 46px;
+      top: 40px;
+      width: 67%;
       z-index: 5; 
     }
     #coincidencias ul 
