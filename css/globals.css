@@ -24,9 +24,9 @@
   		margin: 0;
   		width: 100%;
   	}
-    #articulos-mas-vendidos
+    #articulos-mas-vistos
     {
-    width: 80%;
+      width: 75%;
     }
 
     #bar
@@ -81,7 +81,6 @@
       border-radius: 10px;
       color:rgba(0,0,0,0.5);
       list-style: none;
-
     }
     #categorias ul li
     {
@@ -95,7 +94,7 @@
       color: white;
       cursor: pointer;
     }
-    #categorias, #articulos-mas-vendidos
+    #categorias, #articulos-mas-vistos
     {
       display: inline-block;
       vertical-align: top;
@@ -152,12 +151,12 @@
     }
     .articulos-categoria
     {
+        background: rgb(250,250,250);
         border-right: 1px solid rgba(0,0,0,0.2);
     	  border-left: 1px solid rgba(0,0,0,0.2);
     	  border-bottom: 1px solid rgba(0,0,0,0.2);
-        height: 200px;
-        margin: 0 auto;
-    	  margin: 10px;
+        height: 220px;
+        margin-bottom: 10px;
         width: 100%;
     }
   	.campo
@@ -297,4 +296,5 @@
           position: absolute;
           right: 10px;
         } 
+
     }

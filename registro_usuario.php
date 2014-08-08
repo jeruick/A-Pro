@@ -2,6 +2,17 @@
 require_once("conexion.php");
 $consultaPais = "SELECT * FROM pais;";
 $resultadoPais = mysqli_query($conexion, $consultaPais);
+if(isset($_GET["email"]))
+{
+  $email = $_GET["email"];
+  $result =   mysqli_query($conexion, "SELECT * FROM usuario WHERE correo_electronico = '$email'");
+  if(mysqli_num_rows($result))
+  {
+    echo "este correo ya esta registrado";
+    return;
+  }
+  else return;
+}
 ?>
 
 
@@ -13,7 +24,7 @@ $resultadoPais = mysqli_query($conexion, $consultaPais);
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
 <head>
 <meta charset=utf-8 />
-<title>Ideal Forms 3</title>
+<title>Registro de usuario</title>
 <link rel="stylesheet"  href="css/bootstrap.css">
 <link rel="stylesheet" href="css/jquery.idealforms.css">
 
@@ -66,7 +77,15 @@ $resultadoPais = mysqli_query($conexion, $consultaPais);
     width:100px;
 
   }
-
+  #errorEmail
+  {
+    color: red;
+    display: none;
+    left: 440px;
+    top: 0px;
+    position: absolute;
+    width:100px;
+  }
   #invalid {
     display: none;
     float: left;
@@ -105,7 +124,7 @@ $resultadoPais = mysqli_query($conexion, $consultaPais);
 
             <div class="field">
               <label class="main">Nombre:</label>
-              <input name="name" type="text" data-idealforms-ajax="ajax.php">
+              <input name="name" type="text">
               <span class="error"></span>
             </div>
 
@@ -113,8 +132,9 @@ $resultadoPais = mysqli_query($conexion, $consultaPais);
               <label class="main">E-Mail:</label>
               <input name="email" type="email">
               <span class="error"></span>
+              <p id="errorEmail"></p>
             </div>
-
+            
             <div class="field">
               <label class="main">Contraseña:</label>
               <input name="password" type="password">
@@ -145,7 +165,7 @@ $resultadoPais = mysqli_query($conexion, $consultaPais);
 			     <div class="field">
               <label class="main">Sexo:</label>
               <p class="group">
-                <label><input name="sex" type="radio" value="Masculino">Masculino</label>
+                <label><input checked name="sex" type="radio" value="Masculino">Masculino</label>
                 <label><input name="sex" type="radio" value="Femenino">Femenino</label>
               </p>
               <span class="error"></span>
@@ -172,7 +192,7 @@ $resultadoPais = mysqli_query($conexion, $consultaPais);
 
             <div class="field">
               <label class="main">Telefono:</label>
-              <input name="phone" type="text" placeholder="00000000">
+              <input name="phone" type="text" id="phone" placeholder="00000000">
               <span class="error"></span>
             </div>
 
@@ -197,25 +217,23 @@ $resultadoPais = mysqli_query($conexion, $consultaPais);
   <script src="js/jquery.js"></script>
   <script src="js/jquery-ui.min.js"></script>
   <script src="js/out/jquery.idealforms.js"></script>
-     <!--<script src="js/out/jquery.idealforms.min.js"></script>-->
   <script>
-    var errores;
+    var errores = 0;
     $('form.idealforms').idealforms({
 
       silentLoad: false,
 
       rules: {
-        'username': 'required username ajax',
+        'name': 'required username',
         'email': 'required email',
         'password': 'required pass',
         'confirmpass': 'required equalto:password',
         'date': 'required date',
-        'picture': 'required extension:jpg:png',
+        'picture': 'extension:jpg:png',
         'website': 'url',
-        'hobbies[]': 'minoption:2 maxoption:3',
-        'phone': 'required phone',
+        'phone': 'phone',
         'zip': 'required zip',
-        'options': 'select:default',
+        'selCiudad': 'required select:default',
       },
 
       errors: {
@@ -225,27 +243,28 @@ $resultadoPais = mysqli_query($conexion, $consultaPais);
       },
 
       onSubmit: function(invalid, e) {
-        e.preventDefault();
+        
         $('#invalid')
           .show()
           .toggleClass('valid', ! invalid)
           .text(invalid ? ('Se encontraron ' + invalid +' problemas') : "");
+          if($("#errorEmail").html())
+          {
+            errores = 1;
+          }
+          else
+          {
+            errores = 0;
+          }
 
-          errores = invalid;
+          if(errores > 0 || invalid > 0)
+          {
+            e.preventDefault();
+          }
+
       }
     });
 
-    function submit()
-    {
-      if(errores == 0)
-      {
-          this.submit();
-      }
-      else
-      {
-        return;
-      }
-    }
 
 
     $('form.idealforms').find('input, select, textarea').on('change keyup', function() {
@@ -292,10 +311,22 @@ $resultadoPais = mysqli_query($conexion, $consultaPais);
   $(document).ready(function()
   {
     $( ".selector" ).datepicker({ dateFormat: "yy-mm-dd" });
-    $("#form1").on("submit", submit);
-    
+    $("input[type=email]").on("blur", validarCorreo);
    
   });
+  function validarCorreo()
+  {
+    $.ajax({
+      url: 'registro_usuario.php',
+      type: 'GET',
+      data: {email: $(this).val()},
+    })
+    .done(function(html) {
+        $("#errorEmail").show();
+        $("#errorEmail").html(html);
+    });    
+    
+  }
 
   function seleccionarCiudad(str){
         <!---->

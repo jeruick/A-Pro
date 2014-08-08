@@ -33,6 +33,6 @@ if (isset($_POST["name"]) && isset($_POST["date"]) && isset($_POST["sex"]) && is
 if ($resultado == 1){
 		header("Location: index.php");
 }else {
-		header("Location: registrousuario.php");
+		header("Location: registro_usuario.php");
 }
 ?>

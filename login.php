@@ -15,7 +15,7 @@ if (isset($_POST["correoElectronico"]) && isset($_POST["contrasena"])) {
 ?>
 		<div class="dropdown-user">
         	<a class="account" onClick="mostrarMenuUsuario(this)"><span><a id="userPhoto" href="#" style="position:relative; top: -20px;"><img src="<?php echo 'foto_perfil/'.$registroUsuario["foto_usuario"]; ?>" style="border-radius: 50%;width:50px;height:50px;" /></a></span></a>
-        	<div class="submenu" style="display: none; border: 2px solid red; ">
+        	<div class="submenu" style="display: none;">
         		<ul class="root">     
 		            <li><a href="#Perfil" >Perfil</a></li>
 		            <li><a href="#Historial">Historial</a></li>

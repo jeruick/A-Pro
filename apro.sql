@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-08-2014 a las 01:17:34
+-- Tiempo de generación: 08-08-2014 a las 05:47:39
 -- Versión del servidor: 5.6.16
 -- Versión de PHP: 5.5.9
 
@@ -39,25 +39,25 @@ CREATE TABLE IF NOT EXISTS `articulo` (
   `id_usuario` int(10) NOT NULL,
   `id_categoria` int(3) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=63 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=62 ;
 
 --
 -- Volcado de datos para la tabla `articulo`
 --
 
 INSERT INTO `articulo` (`id`, `nombre_articulo`, `marca`, `precio_unidad`, `cantidad`, `estado`, `visitas`, `descripcion`, `foto_articulo`, `id_usuario`, `id_categoria`) VALUES
-(1, 'Abrigo_cafe', 'Couture', 550, 1, 4, 0, 'Abrigo de algodon, color cafe, zise ''Large''  ', 'abrigo_feo.png', 1, 9),
-(2, 'Reloj Galaxy Gear', 'Samsung', 2000, 1, 5, 0, 'Reloj de hombre colo naranja, nuevo.', 'galaxy_gear.png', 3, 9),
-(4, 'Computadora HP Notebook', 'HP', 5000, 1, 5, 0, 'Computadora portatil, HD:400gb, RAM: 4gb, Procesador: intel i5 negra  ', 'hp_notebook.png', 4, 2),
+(1, 'Abrigo_cafe', 'Couture', 550, 1, 4, 3, 'Abrigo de algodon, color cafe, zise ''Large''  ', 'abrigo_feo.png', 1, 9),
+(2, 'Reloj Galaxy Gear', 'Samsung', 2000, 1, 5, 3, 'Reloj de hombre colo naranja, nuevo.', 'galaxy_gear.png', 3, 9),
+(4, 'Computadora HP Notebook', 'HP', 5000, 1, 5, 5, 'Computadora portatil, HD:400gb, RAM: 4gb, Procesador: intel i5 negra', 'hp_notebook.png', 4, 2),
 (5, 'Ipad 2', 'Apple', 3500, 1, 4, 0, 'color: blanca, semi-nueva', 'ipad1.png', 1, 2),
-(6, 'Zapatos de Dama', 'Louboutin', 850, 1, 5, 0, 'color rojo, nuevos, marca Louboutin', 'omg.png', 1, 9),
+(6, 'Zapatos de Dama', 'Louboutin', 850, 1, 5, 1, 'color rojo, nuevos, marca Louboutin', 'omg.png', 1, 9),
 (7, 'Abrigo Gris Aeropostale', 'Aeropostale', 500, 2, 5, 0, 'Abrigo de algodon, size ''M'', nuevo.', 'abrigo_gris.png', 1, 9),
 (8, 'Reloj_ Iwatch', 'Apple', 2500, 3, 5, 0, 'Reloj digital marca Apple, negro', 'iwatch.png', 3, 9),
 (9, 'Iphone 5s', 'Apple', 2500, 2, 4, 0, 'color negro, seminuevo', 'iphone5s.png', 2, 2),
 (10, 'Celular Samsung note 1', 'Samsung', 8500, 1, 4, 0, 'color blanco, 8gb de memoria interna, camara 12mpx', 'samsung_note1.png', 3, 2),
 (11, 'Tablet Samsung tab3 ', 'Samsung', 2500, 1, 4, 0, 'Tablet Tab3, 5 plg, 16gb memoria interna, ranura para SIMCARD.', 'samsungtab3_5plg.png', 2, 2),
 (12, 'Samsung Galaxy Note 3', 'Samsung', 8500, 2, 5, 0, 'color negro, mememoria interna:16gb- hasta 32gb.', 'note3.png', 1, 2),
-(13, 'Hp Notebook', 'HP', 5000, 1, 5, 0, '500GB Disco Duro, 4GB RAM, color negro, procesador i5', 'hp_notebook2.png', 2, 2),
+(13, 'Hp Notebook', 'HP', 5000, 1, 5, 3, '500GB Disco Duro, 4GB RAM, color negro, procesador i5', 'hp_notebook2.png', 2, 2),
 (14, 'Jersey Rojo Dama', 'DKNY', 850, 2, 5, 0, '', 'jersey_rojo.png', 1, 9),
 (15, 'Loubotin_dama_Rosados', 'Louboutin', 800, 1, 4, 0, 'size 2 1/2', 'zapatos_rosados.png', 1, 9),
 (16, 'Celular Ace', 'Ace', 3500, 1, 4, 0, '', 'ace4.png', 3, 2),
@@ -65,23 +65,23 @@ INSERT INTO `articulo` (`id`, `nombre_articulo`, `marca`, `precio_unidad`, `cant
 (18, 'Macbook Air', 'Apple', 20000, 1, 5, 0, '50gb DD solido, 4gb RAM', 'macbookair_1.png', 1, 2),
 (19, 'Reloj Hombre Sandoz', 'Sandoz', 3000, 1, 5, 0, '', 'relojSandoz.png', 3, 9),
 (20, 'Reloj Hombre_ plata', 'LV', 2300, 1, 4, 0, '', 'relojplata.png', 2, 9),
-(21, 'Samsung Xperia', 'Samsung', 6300, 2, 4, 0, '', 'xperiat3.png', 3, 2),
+(21, 'Samsung Xperia', 'Samsung', 6300, 2, 4, 6, '', 'xperiat3.png', 3, 2),
 (22, 'Reloj Dama_Lacoste', 'Lacoste', 2300, 2, 5, 0, '', 'relojLacoste2.png', 1, 9),
 (23, 'Zapatos DKNY_negros_Mujer', 'DKNY', 950, 1, 4, 0, 'negros, zize 8', 'zapatosLoubotin.png', 1, 9),
-(24, 'Perfume 212 Vip Dama', 'Carolina Herrera', 900, 2, 5, 0, '', '212VIP.png', 3, 10),
-(25, 'Adorno para mesa_ hogar', 'DecoArt', 300, 3, 5, 0, 'pelotas naranja para centro de mesa', 'adornos.png', 1, 8),
+(24, 'Perfume 212 Vip Dama', 'Carolina Herrera', 900, 2, 5, 10, '', '212VIP.png', 3, 10),
+(25, 'Adorno para mesa_ hogar', 'DecoArt', 300, 3, 5, 1, 'pelotas naranja para centro de mesa', 'adornos.png', 1, 8),
 (26, 'Locion Hombre_Aqua Bvlgari', 'Bvlgari', 2400, 1, 5, 0, '', 'aquaBulgari.png', 2, 10),
 (27, 'Locion Armani_Code de Hombre', 'Armani', 250, 1, 5, 0, '', 'Armanicode.png', 3, 10),
-(28, 'Equpo de Sonido_con base para Ipod ', 'Philips', 5500, 1, 5, 0, '', 'base_reproductor.png', 1, 8),
-(29, 'Bolso de Viaje_ Cuero', 'Bvlgari', 2500, 1, 4, 0, '', 'bolsoCuero.png', 2, 5),
-(30, 'Maleta Lous Vuitton_Viaje', 'Lous Vuitton', 2300, 2, 5, 0, '', 'bolsoLV.png', 3, 5),
+(28, 'Equpo con base para Ipod ', 'Philips', 5500, 1, 5, 0, '', 'base_reproductor.png', 1, 8),
+(29, 'Bolso de Viaje_ Cuero', 'Bvlgari', 2500, 1, 4, 2, '', 'bolsoCuero.png', 2, 5),
+(30, 'Maleta Lous Vuitton_Viaje', 'Lous Vuitton', 2300, 2, 5, 6, '', 'bolsoLV.png', 3, 5),
 (31, 'Bolso de Mujer_viaje_LV', 'Lous Vuitton', 2000, 2, 5, 0, '', 'bolsoLV2.png', 1, 5),
 (32, 'Maletin_dama_Pink', 'Victorias Secret', 1200, 1, 5, 0, '', 'bolsoPink.png', 1, 5),
 (33, 'Camion_juguete', 'Prismatics', 300, 1, 4, 0, '', 'camion.png', 2, 4),
-(34, 'Camara Video_Canon', 'Canon', 4500, 1, 4, 0, '', 'camvideo.png', 3, 12),
+(34, 'Camara Video_Canon', 'Canon', 4500, 1, 4, 5, '', 'camvideo.png', 3, 12),
 (35, 'Camara fotografica_canon', 'Canon', 5000, 1, 5, 0, '', 'canon.png', 2, 12),
 (36, 'Perfume_mujer_cocoChannel', 'Channel', 2300, 1, 5, 0, '', 'cocoChannel.png', 1, 10),
-(37, 'Equipo de Sonido', 'Sony', 6500, 1, 5, 0, '', 'EquipoSonido.png', 3, 8),
+(37, 'Equipo de Sonido', 'Sony', 6500, 1, 5, 7, '', 'EquipoSonido.png', 3, 8),
 (38, 'Escritorio_O', '', 0, 0, 0, 0, '', '', 0, 0),
 (39, 'Escritorio_Oficina', 'DecoArt', 5500, 1, 5, 0, '', 'escritorio.png', 2, 13),
 (40, 'Locion para Hombre_HugoBoss', 'Hugo Boss', 2300, 2, 5, 0, '', 'HB.png', 3, 10),
@@ -95,7 +95,7 @@ INSERT INTO `articulo` (`id`, `nombre_articulo`, `marca`, `precio_unidad`, `cant
 (48, 'Locion Blue_Nautica para Hombre', 'Nautica', 2400, 1, 5, 0, '', 'locionNautica.png', 3, 10),
 (49, 'Camara fotografica Lumix', 'Lumix', 4500, 1, 5, 0, '', 'lumix.png', 2, 12),
 (50, 'Set de Bolsos para viaje', 'Lous Vuitton', 2500, 1, 5, 0, '', 'maletaybolso.png', 1, 5),
-(51, 'Set de MAquillaje', 'Lamcome', 2000, 1, 5, 0, '', 'maquillaje.png', 1, 10),
+(51, 'Set de MAquillaje', 'Lamcome', 2000, 1, 5, 3, '', 'maquillaje.png', 1, 10),
 (52, 'Mesa Vidrio_LivingRoom', 'DecoArt', 2200, 1, 5, 0, '', 'mesacentral.png', 2, 8),
 (53, 'Mesa_para Living Room', 'DecoArt', 3000, 1, 5, 0, '', 'mesaDecoracion.png', 1, 8),
 (54, 'Camara Nikon_fotografica', 'Nikon', 6000, 1, 5, 0, '', 'nikon.png', 2, 12),
@@ -336,7 +336,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `foto_usuario` longtext NOT NULL,
   `id_ciudad` int(3) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
 
 --
 -- Volcado de datos para la tabla `usuario`
@@ -347,11 +347,7 @@ INSERT INTO `usuario` (`id`, `nombre_usuario`, `fecha_nacimiento`, `sexo`, `nume
 (2, 'Edson Froylan Bonilla', '1990-05-06', 'Masculino', '22551043', 'edson_bonilla@hotmail.com', '822d163155fcfc5f88618dae47d4a38d', 'edson.jpg', 11),
 (3, 'Erick Alexander Zelaya', '1991-12-24', 'Masculino', '22304585', 'erick_zelaya@yahoo.com', '5b7179cff6a78c5e43ea6acaefb21431', 'erick.jpg', 12),
 (4, 'Ana Izaguirre', '1991-02-02', 'Femenino', '22697845', 'ana_izaguirre@gmail.com', 'c5c5ef2caf75f0756da2a9b38d586782', 'ana.jpg', 31),
-(5, 'Walter White', '1991-07-17', 'Masculino', '2134234234', 'walt@theman.com', '81dc9bdb52d04dc20036dbd8313ed055', 'Breaking-Bad.jpg', 3),
-(6, 'jesse', '2014-08-13', 'male', '23423423', 'jesse@bitch.com', '90635c5468bc06690b11dc44b3407d52', '', 79),
-(7, 'jsldkfjsdjf', '2014-08-05', 'male', '', 'jsdlfj@gamicl.com', '2c8f31b20ae2b21a22af52cf636f55da', '', 0),
-(8, 'erick', '2014-08-12', 'male', '34564532', 'erick@gamic.com', 'cff8e56d2ddc80cb63757b7609ecf6ef', '', 38),
-(9, 'sdsdf', '1980-12-12', 'Masculino', '23423423', 'jeruick@hasjkd.com', '2c8f31b20ae2b21a22af52cf636f55da', 'usuario_sin_foto.jpg', 90);
+(14, 'Roos Geller', '2014-08-01', 'Masculino', '23423423', 'rossy@yahoo.com', '078d2bb3be8edc3e4658ef90e19f76c4', 'ross.jpg', 5);
 
 -- --------------------------------------------------------
 
