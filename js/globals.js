@@ -21,15 +21,50 @@ $(document).ready(function(){
       $(".historial").on("click", mostrarHistorial);
       $("#categorias li").on("click", articulosCategoria);
       $(".detalles").on("click", mostrarDetalles);
-      $(".btn btn-primary btn-lg").on("click", prueba);
-      articulosEnCarrito();
+      $(".perfil").on("click",mostrarPerfil);
+      $(".misArticulos").on("click",misArticulos);
 
       
 		});
+    function misArticulos()
+    {
+      $(location).attr('href','historial_venta.php');
+    }
 
-  function prueba()
+    function mostrarPerfil()
+    {
+      $(location).attr('href','modificacion_perfil.php');
+    }
+
+    $(window).load(function() {
+      /* Act on the event */
+          articulosEnCarrito();
+    });
+
+  
+
+
+  function agregarAlCarro(id)
   {
-    alert();
+    
+    $.ajax({
+        url: 'carrito.php',
+        data: {id: $(id).attr('value')},
+      })
+      .done(function(respuesta) {
+        
+        if(respuesta != "")
+        {
+          var li = jQuery.parseJSON(respuesta);
+          articulosEnCarrito();  
+          alert("Articulo agregado al carrito");
+        }
+        else
+        {
+          alert("El articulo ya esta en el carrito!");
+        }
+       
+      });
   }
 
     function mostrarDetalles(id)
@@ -248,6 +283,7 @@ $(document).ready(function(){
         type: 'POST',
       })
       .done(function(response) {
+      
         $("#shopping_cart p").html(response);
       })
       .fail(function() {

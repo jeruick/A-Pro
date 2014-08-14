@@ -158,10 +158,10 @@ $i = 5;
               <a class="account" onClick="mostrarMenuUsuario(this)"><a id="userPhoto" href="#" style="position:relative; top: -20px;"><img src="<?php echo 'foto_perfil/'.$rowUser["foto_usuario"]; ?>" style="border-radius: 50%;width:50px;height:50px;" /></a></a>
               <div class="submenu" style="display: none;">
                 <ul class="root">     
-                    <li><a class="perfil" href="#" >Perfil</a></li>
-                    <li><a class="historial" href="#">Historial</a></li>
-                    <li><a class="misArticulos" href="#">Mis Articulos</a></li>
-                    <li><a class="logout" href="#">Logout</a></li>
+                    <li><a class="perfil">Perfil</a></li>
+                    <li><a class="historial" >Historial</a></li>
+                    <li><a class="misArticulos" >Mis Articulos</a></li>
+                    <li><a class="logout" >Logout</a></li>
                   </ul>
               </div>
             </div> 

@@ -19,15 +19,14 @@
           <div style="border-bottom:1px solid gray;margin:0px 10px 20px 10px; padding:10px"> 
        <?php }  ?>
     
-      <div class="article" style="width:150px;display: inline-block;" >
+      <div class="article" style="width:180px;display: inline-block;" >
         <img style="width:100px;height:100px" src="<?php echo 'articulos/'.$row["foto_articulo"]; ?>">
         <p><?php echo "Precio: L.".$row["precio_unidad"]; ?></p>
-        <p> Cantidad: <input type="number" min="1" max="<?php echo $row['cantidad'] ?>" id="Cantidad" name="Cantidad" ></p>
-        <input type="button" class="btn btn-default navbar-btn" name='<?php echo $row["id"]; ?>' onClick="mostrarDetalles(this.name)" value="+Detalles" />
-        <a style="padding:6px 4px;font-size:14px;" class="btn btn-primary btn-lg" role="button">Comprar</a>
+        <input type="button" style="padding:4px;font-size:12px" class="btn btn-default navbar-btn" name='<?php echo $row["id"]; ?>' onClick="mostrarDetalles(this.name)" value="+Detalles" />
+        <a style="padding:4px;font-size:12px;" class="btn btn-primary btn-lg" onClick="agregarAlCarro(this)" value="<?php echo $row["id"]; ?>" role="button">Agregar al carro</a>
         <div style="background: white;border:1px solid rgba(0,0,0,0.1);display:none;position:absolute; width:200px;box-shadow:rgba(0,0,0,0.1) 0px 0px 10px" value="<?php echo $row["id"] ?>">
           <p><?php echo $row["descripcion"] ?></p>
-          <p><?php echo $row["marca"] ;?></p>
+          <p>Marca:<?php echo $row["marca"] ;?></p>
           <p>Existencia: <?php echo $row["cantidad"] ?></p>
         </div>
       </div>
