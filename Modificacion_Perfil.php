@@ -1,6 +1,7 @@
 <?php
 require_once("conexion.php");
 session_start();
+$id = -1;
 if(isset($_SESSION["usuario_valido"]))
 {
 
@@ -40,34 +41,41 @@ if(isset($_POST["txtNombre"]))
 	    }
 }
 
+ $consulta = "SELECT nombre_usuario, fecha_nacimiento, sexo, numero_telefonico, foto_usuario, contrasena,
+        correo_electronico, nombre_ciudad, nombre_pais, id_pais, id_ciudad
+        FROM usuario, ciudad, pais 
+        WHERE usuario.id = $id AND usuario.id_ciudad = ciudad.id AND ciudad.id_pais = pais.id";
+
+  $result = mysqli_query($conexion, $consulta);
+
+
 // ACTUALIZACION DE CONTRASENA
-       if(isset($_POST["txtPass_nueva"]) && isset($_POST["txtConfirmar_pass"]))
-       { 
-       		$texto1 = $_POST["txtPass_nueva"];
-		 	$texto2 = $_POST["txtConfirmar_pass"];
- 
-		   if($texto1 == $texto2)
-   			{
- 				$pass = md5($_POST["txtConfirmar_pass"]);
+    if(isset($_POST["txtPass_nueva"]) && isset($_POST["txtConfirmar_pass"]) && isset($_POST["txtPass_anterior"]))
+      {  
+        $con_pass = "SELECT contrasena FROM usuario WHERE id= $id";
+        $fila = mysqli_query($conexion, $con_pass);
+        $Oldpass = md5($_POST["txtPass_anterior"]); 
+        $filas = mysqli_fetch_assoc($fila);
 
-				$consultaPass = "UPDATE usuario SET contrasena = '$pass' WHERE id= $id"; 
-				mysqli_query($conexion, $consultaPass);
-   	        }
-        }
+        if($filas["contrasena"] == $Oldpass)
+        {
+             if($_POST["txtPass_nueva"] == $_POST["txtConfirmar_pass"])
+              {
+                $pass = md5($_POST["txtConfirmar_pass"]);
 
-   $consulta = "SELECT nombre_usuario, fecha_nacimiento, sexo, numero_telefonico, foto_usuario,
-				correo_electronico, nombre_ciudad, nombre_pais, id_pais, id_ciudad
-				FROM usuario, ciudad, pais 
-				WHERE usuario.id = $id AND usuario.id_ciudad = ciudad.id AND ciudad.id_pais = pais.id";
-
-	$result = mysqli_query($conexion, $consulta);
+              $consultaPass = "UPDATE usuario SET contrasena = '$pass' WHERE id= $id"; 
+              mysqli_query($conexion, $consultaPass);
+              }
+              else{ echo "error1"; }
+         }
+         else{ echo "error"; }
+      }
 
 
 }
 else{
+      header("location: index.php"); }
 
-	header("location: index.php");
-}
 $consulta2 = "SELECT * FROM pais";
 $consulta3 = "SELECT * FROM ciudad";
 $result2 = mysqli_query($conexion, $consulta2);
@@ -509,7 +517,7 @@ $result3= mysqli_query($conexion,$consulta3);
   		</tr>
   	</table>
    </form>
-   <input type="hidden" id="txtId" name= "txtId" value= "1" /> <!-- value="<?php //echo $_SESSION["id"]?>" CAMBIARRR!!!! -->
+   <input type="hidden" id="txtId" name= "txtId" value="<?php echo $id;?>" />
   </div>
 </div>
 
@@ -591,20 +599,30 @@ $result3= mysqli_query($conexion,$consulta3);
         xmlAjax.send();
     }
 
- function Nueva_Contrasena()
+    function Nueva_Contrasena()
     {
-       xmlAjax.onreadystatechange = function()
+      var xmlAjax1;
+    if(window.XMLHttpRequest) 
+      {
+        xmlAjax1 = new XMLHttpRequest();
+      } 
+      else 
+      {
+        xmlAjax1 = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+       
+      xmlAjax1.onreadystatechange = function()
+      {
+        if(xmlAjax1.readyState == 4) 
         {
-        if(xmlAjax.readyState == 4) 
-        {
-          if(xmlAjax.status == 200) 
+          if(xmlAjax1.status == 200) 
           {
 
             var div = document.getElementById("msj_WNpass");
 
-            if(xmlAjax.responseText != "")
+            if(xmlAjax1.responseText != "")
             {
-               div.innerHTML = xmlAjax.responseText;
+               div.innerHTML = xmlAjax1.responseText;
             }
             else
             {
@@ -620,8 +638,8 @@ $result3= mysqli_query($conexion,$consulta3);
       }
         var texto1 = document.getElementById("txtPass_nueva").value;
         var texto2 = document.getElementById("txtConfirmar_pass").value;
-        xmlAjax.open("GET","nueva_pass.php?texto1="+ texto1 + "&texto2=" + texto2, true);
-        xmlAjax.send();
+        xmlAjax1.open("GET","nueva_pass.php?texto1="+ texto1 + "&texto2=" + texto2, true);
+        xmlAjax1.send();
     }
 
 </script>
