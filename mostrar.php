@@ -1,9 +1,18 @@
 <?php
 	require_once("conexion.php");
+  session_start();
 	if(isset($_GET["text"]))
 	{
 		$texto = $_GET["text"];
-		$result = mysqli_query($conexion, "SELECT * FROM articulo WHERE nombre_articulo LIKE '%$texto%'");
+		$result = mysqli_query($conexion, "SELECT * FROM articulo WHERE nombre_articulo LIKE '%$texto%' AND cantidad > 0");
+    
+    while ($articulo = mysqli_fetch_assoc($result))
+    {
+      $id_articulo = $articulo["id"];
+      mysqli_query($conexion, "UPDATE articulo SET visitas = visitas + 1 WHERE id = $id_articulo");
+    }
+    mysqli_data_seek($result, 0);
+    
 	}
 	else
 	{
@@ -12,23 +21,30 @@
 	}
 
 	$result2 = mysqli_query($conexion, "SELECT * FROM categoria");
-  	
-	
+  
+  if(isset($_SESSION["usuario_valido"]))
+  {
+    $id = $_SESSION["usuario_valido"];
+    $user = mysqli_query($conexion, "SELECT * FROM usuario WHERE id = $id");
+    $rowUser = mysqli_fetch_assoc($user);
+  }	
 ?>
 
 <html>
 <head>
 	<title><?php echo $texto; ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <meta charset="utf-8"> 
    	
     <link rel="stylesheet" href="css/bootstrap.css" />
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/estiloLogin.css" />
     <link rel="stylesheet" href="css/simplePagination.css">
     <link rel="stylesheet" href="css/globals.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
 
     <script src="js/jquery.js"></script>
+    <script src="js/jquery-ui.min-1.10.3.js"></script>
     <script src="js/simplePagination.js"></script>
     <script src="js/modernizr.custom.63321.js"></script>
     <script src="js/bootstrap.js"></script>
@@ -123,6 +139,40 @@
           width: 50%;
         }
 
+        .ventana
+        {
+          display: none; <!-- es importante ocultar las ventanas previamente -->
+          font-family:Arial, Helvetica, sans-serif;
+          color:#808080;
+          line-height:28px;
+          font-size:15px;
+          text-align:justify;
+        }
+        .ventana div 
+        {
+          margin-bottom: 5px; 
+        }
+        .ventana input
+        {
+          width: 250px; 
+        }
+        .ventana .in 
+        {
+          background: #73b2e6;
+          color:white;
+          margin-left: 5px;
+          padding: 5px 10px;
+          text-decoration: none;
+        }
+        .ventana .new 
+        {
+          background: rgb(0,200,100);
+          color:white;
+          margin-left: 5px;
+          padding: 5px 10px;
+          text-decoration: none;
+        }
+
         @media screen and (max-width: 1024px)
         {
           
@@ -208,8 +258,23 @@
       </div><!-- /.row -->
 
       <div class="container">
-        
         <section class="main">
+          <?php if(isset($rowUser)) 
+          { 
+          ?>
+            <div class="dropdown-user">
+              <a class="account" onClick="mostrarMenuUsuario(this)"><a id="userPhoto" href="#" style="position:relative; top: -20px;"><img src="<?php echo 'foto_perfil/'.$rowUser["foto_usuario"]; ?>" style="border-radius: 50%;width:50px;height:50px;" /></a></a>
+              <div class="submenu" style="display: none;">
+                <ul class="root">     
+                    <li><a class="perfil"  href="#" >Perfil</a></li>
+                    <li><a class="historial"  href="#">Historial</a></li>
+                    <li><a class="misArticulos" href="#">Mis Articulos</a></li>
+                    <li><a class="logout"  href="#">Logout</a></li>
+                  </ul>
+              </div>
+            </div> 
+          <?php   
+          } else {  ?>
           <span id="spLogin"><a id="btnLogin" href="#">Login</a><span>
           <form class="form-1" action="">
             <p class="field">
@@ -220,15 +285,17 @@
                 <input type="password" id="txtPass" name="password" placeholder="Password">
                 <i class="icon-lock icon-large"></i>
             </p>
-			     <p class="campo">
+           <p class="campo">
                 <a href="registro_usuario.php" id="btnRegistrar" name="btnRegistrar">Registrarse</a>
             </p>
             <p class="submit1">
               <button type="button" id="submit" name="submit"><i class="icon-arrow-right icon-large"></i></button>
-            </p>	
+            </p>  
           </form>
         </section>
+        <?php } ?>
       </div>
+
       <div id="shopping_cart"><p style="padding-left:10px; margin: 0;position:relative; top: 12px;">0</p><a href="#" style="margin: 0;padding:0;"><img src="icons/cart.png"></a></div>
   </div>
   
@@ -244,18 +311,25 @@
           <p><span style="color:#00008B;font-size: 14px;font-weight:bold;"><?php echo $row["nombre_articulo"]; ?></span></p>
           <p>Precio: <span style="color: red;"><?php echo "L.".$row["precio_unidad"]; ?></span></p>
           <p>Marca: <span><?php echo $row["marca"]; ?></span></p>
-          <p>Cantidad: <span><?php echo $row["cantidad"]; ?></span></p>
+          <p>Existencia: <span><?php echo $row["cantidad"]; ?></span></p>
           <p><?php echo $row["descripcion"]; ?></p>
         </div>
         <div class="col2">
           <p>Estado: <span><img style="padding-bottom:5px;" src="<?php echo "icons/".$row["estado"]."star.png"; ?>"></span></p>
+          <p>Cantidad: <input type="number" min="1" max="<?php echo $row["cantidad"]; ?>" style="width:50px" value="1" name="<?php echo $row["id"]; ?>"></p>
           <p><a class="addCart" href="#" value="<?php echo $row["id"]; ?>">Agregar al carro</a></p>
-          <p><a class="buyNow" href="#">Comprar Ahora</a></p>
+          <p><a class="buyNow" href="#" value="<?php echo $row["id"]; ?>">Comprar Ahora</a></p>
         </div>        
 			</div>
 		</div>
 		<?php } mysqli_free_result($result); ?>
 	</div>
 	<center><div id="selector"></div></center>
+  
+  <div class="ventana" title="Debes logearte">
+      <div><input name="txtUsuario" class="txtUsuario" placeholder="correo electronico" /><a class="in" href="#">Entrar</a></div>
+      <div><input type="password" name="txtContra" class="txtContra" placeholder="contraseña" /></div>
+      <div><p>Eres nuevo?<a class="new" href="registro_usuario.php">Registrate</a></p></div>
+  </div>
 </body>
 </html>

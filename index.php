@@ -13,19 +13,19 @@
 
   $consulta = "SELECT T1.id, T1.nombre_articulo, T1.foto_articulo, T1.visitas, T1.id_categoria, 
           T1.marca,T1.precio_unidad, T2.nombre_categoria FROM 
-((SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 1 ORDER BY VISITAS DESC LIMIT 5) UNION
-(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 2 ORDER BY VISITAS DESC LIMIT 5) UNION 
-(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 3 ORDER BY VISITAS DESC LIMIT 5) UNION
-(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 4 ORDER BY VISITAS DESC LIMIT 5) UNION
-(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 5 ORDER BY VISITAS DESC LIMIT 5) UNION
-(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 6 ORDER BY VISITAS DESC LIMIT 5) UNION
-(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 7 ORDER BY VISITAS DESC LIMIT 5) UNION
-(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 8 ORDER BY VISITAS DESC LIMIT 5) UNION
-(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 9 ORDER BY VISITAS DESC LIMIT 5 ) UNION
-(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 10 ORDER BY VISITAS DESC LIMIT 5) UNION 
-(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 11 ORDER BY VISITAS DESC LIMIT 5) UNION
-(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 12 ORDER BY VISITAS DESC LIMIT 5) UNION
-(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 13 ORDER BY VISITAS DESC LIMIT 5)) AS T1,
+((SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 1 AND cantidad > 0 ORDER BY VISITAS DESC LIMIT 5) UNION
+(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 2  AND cantidad > 0 ORDER BY VISITAS DESC LIMIT 5) UNION 
+(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 3  AND cantidad > 0 ORDER BY VISITAS DESC LIMIT 5) UNION
+(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 4  AND cantidad > 0 ORDER BY VISITAS DESC LIMIT 5) UNION
+(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 5  AND cantidad > 0 ORDER BY VISITAS DESC LIMIT 5) UNION
+(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 6  AND cantidad > 0 ORDER BY VISITAS DESC LIMIT 5) UNION
+(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 7  AND cantidad > 0 ORDER BY VISITAS DESC LIMIT 5) UNION
+(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 8  AND cantidad > 0 ORDER BY VISITAS DESC LIMIT 5) UNION
+(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 9  AND cantidad > 0 ORDER BY VISITAS DESC LIMIT 5 ) UNION
+(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 10 AND cantidad > 0 ORDER BY VISITAS DESC LIMIT 5) UNION 
+(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 11 AND cantidad > 0 ORDER BY VISITAS DESC LIMIT 5) UNION
+(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 12 AND cantidad > 0 ORDER BY VISITAS DESC LIMIT 5) UNION
+(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 13 AND cantidad > 0 ORDER BY VISITAS DESC LIMIT 5)) AS T1,
 (SELECT id_categoria, nombre_categoria FROM ARTICULO, CATEGORIA WHERE ARTICULO.ID_CATEGORIA = CATEGORIA.ID
 GROUP BY ID_CATEGORIA ORDER BY SUM(VISITAS) DESC LIMIT 5 ) AS T2 WHERE T1.ID_CATEGORIA = T2.ID_CATEGORIA";
 $resultado = mysqli_query($conexion, $consulta);
@@ -51,6 +51,11 @@ $i = 5;
         padding: 5px 5px; 
         text-decoration: none;
     }
+    .addCart:hover
+    {
+      color: white;
+      text-decoration: none;
+    }
   .details_article
   {
     width: 90px;
@@ -70,7 +75,7 @@ $i = 5;
     height: 170px;
     margin-top: 10px;
     margin-left: 5px;
-    width: 190px;
+    width: 170px;
   }
   .top_articles img
   {
@@ -85,22 +90,22 @@ $i = 5;
   @media screen and (max-width: 1024px)
   {
     .top_articles
-        {
-          height: 150px;
-          margin-top: 10px;
-          margin-left: 0px;
-          width: 140px;
-        }
-         .top_articles img
-        {
-          height: 50px;
-          margin: 0 auto;
-          width: 50px;
-        } 
-        .top_articles p 
-        {
-          font-size: 8px;
-        }
+    {
+      height: 150px;
+      margin-top: 10px;
+      margin-left: 0px;
+      width: 120px;
+    }
+     .top_articles img
+    {
+      height: 50px;
+      margin: 0 auto;
+      width: 50px;
+    } 
+    .top_articles p 
+    {
+      font-size: 8px;
+    }
   }
   }
 </style>
@@ -153,10 +158,10 @@ $i = 5;
               <a class="account" onClick="mostrarMenuUsuario(this)"><a id="userPhoto" href="#" style="position:relative; top: -20px;"><img src="<?php echo 'foto_perfil/'.$rowUser["foto_usuario"]; ?>" style="border-radius: 50%;width:50px;height:50px;" /></a></a>
               <div class="submenu" style="display: none;">
                 <ul class="root">     
-                    <li><a href="#Perfil" >Perfil</a></li>
-                    <li><a href="#Historial">Historial</a></li>
-                    <li><a href="#misArticulos">Mis Articulos</a></li>
-                    <li><a id="logout" href="#Logout">Logout</a></li>
+                    <li><a class="perfil" href="#" >Perfil</a></li>
+                    <li><a class="historial" href="#">Historial</a></li>
+                    <li><a class="misArticulos" href="#">Mis Articulos</a></li>
+                    <li><a class="logout" href="#">Logout</a></li>
                   </ul>
               </div>
             </div> 
@@ -182,6 +187,7 @@ $i = 5;
         </section>
         <?php } ?>
       </div>
+
       <div id="shopping_cart"><p style="padding-left:10px; margin: 0;position:relative; top: 12px;">0</p><a href="#" style="margin: 0;padding:0;"><img src="icons/cart.png"></a></div>
   </div>
   
@@ -220,13 +226,14 @@ $i = 5;
       <?php while ($row = mysqli_fetch_assoc($result))
        {
       ?>
-          <li id='<?php echo $row["id"]; ?>'><?php echo $row["nombre_categoria"]; ?></li>  
+          <li value='<?php echo $row["id"]; ?>'><?php echo $row["nombre_categoria"]; ?></li>  
       <?php 
        } mysqli_free_result($result);
        ?>
       
     </ul>
   </div>
+
   <div id="articulos-mas-vistos">
     
       
@@ -238,16 +245,18 @@ $i = 5;
               <div class="top_articles">
 
                 <span class="photo_article"><img src="<?php echo "articulos/".$row["foto_articulo"]; ?>"></span>  
-              <p style="color: gray;font-weight:bold;"><?php echo $row["nombre_articulo"]; ?></p>
-              <p>Precio: <span style="color: red;"><?php echo "L.".$row["precio_unidad"]; ?></span></p>
+                <p style="color: gray;font-weight:bold;"><?php echo $row["nombre_articulo"]; ?></p>
+                <p>Precio: <span style="color: red;"><?php echo "L.".$row["precio_unidad"]; ?></span></p>
                 <p><a class="addCart" href="#" value="<?php echo $row["id"]; ?>">Agregar al carro</a></p>
               </div>
 
       <?php $i++; if($i%5 == 0){ ?> 
             </div>           
               <?php }  } mysqli_free_result($resultado); ?>
-    
+            
+      </div>
  </div>
+ <div id="articulos-por-categoria"></div>
 
 </body>
 </html>

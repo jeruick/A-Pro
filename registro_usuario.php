@@ -261,6 +261,7 @@ if(isset($_GET["email"]))
           {
             e.preventDefault();
           }
+          alert("Registro completado ya puedes logearte");
 
       }
     });

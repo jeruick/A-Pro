@@ -28,6 +28,10 @@
     {
       width: 75%;
     }
+    #articulos-por-categoria
+    {
+      display: none;
+    }
 
     #bar
     {
@@ -94,7 +98,7 @@
       color: white;
       cursor: pointer;
     }
-    #categorias, #articulos-mas-vistos
+    #categorias, #articulos-mas-vistos, #articulos-por-categoria
     {
       display: inline-block;
       vertical-align: top;
@@ -148,6 +152,11 @@
       right: 100px;
       top: 23px;
       width:4%;
+    }
+    #shopping_cart p 
+    {
+      color: orange;
+      font-weight: bold;
     }
     .articulos-categoria
     {
