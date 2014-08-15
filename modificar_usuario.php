@@ -15,6 +15,7 @@ if(isset($_POST["txtNombre"]))
 		$numero_t = $_POST["txtNumeroT"];
 		$ciudad = $_POST["Slciudad"];
 		$prueba = strtotime($fecha_nac);
+		$tipoUsuario = $_POST["tipoUser"];
 
 		$nacimiento = date("Y-m-d", $prueba);
 	
@@ -26,20 +27,20 @@ if(isset($_POST["txtNombre"]))
 			move_uploaded_file($_FILES["txtFoto"]["tmp_name"], "foto_perfil/". $_FILES["txtFoto"]["name"]);
 
 			$query = "UPDATE usuario SET nombre_usuario = '$nombre', fecha_nacimiento = '$nacimiento', sexo='$genero', numero_telefonico = '$numero_t',
-						correo_electronico ='$correo', foto_usuario ='$foto', id_ciudad = $ciudad WHERE id= $id";
+						correo_electronico ='$correo', foto_usuario ='$foto', id_ciudad = $ciudad, admin = $tipoUsuario WHERE id= $id";
 		    mysqli_query($conexion, $query);		    	 
 	    }
 	    else if($_FILES["txtFoto"]["name"] == "")
 	    {
 	    	$query = "UPDATE usuario SET nombre_usuario = '$nombre', fecha_nacimiento = '$nacimiento', sexo='$genero', numero_telefonico = '$numero_t',
-						correo_electronico='$correo', id_ciudad= $ciudad WHERE id= $id";
+						correo_electronico='$correo', id_ciudad= $ciudad, admin = $tipoUsuario WHERE id= $id";
 
 			mysqli_query($conexion, $query);
 	    }
 }
 
        $consulta = "SELECT nombre_usuario, fecha_nacimiento, sexo, numero_telefonico, foto_usuario, contrasena,
-        correo_electronico, nombre_ciudad, nombre_pais, id_pais, id_ciudad
+        correo_electronico, nombre_ciudad, nombre_pais, id_pais, id_ciudad, admin
         FROM usuario, ciudad, pais 
         WHERE usuario.id = $id AND usuario.id_ciudad = ciudad.id AND ciudad.id_pais = pais.id";
 
@@ -192,7 +193,8 @@ else
 			<tr>
 			<tr>
 				<td>Sexo:</td>
-				<td><label><input name="sex" type="radio" value="Masculino" <?php if($usuario["sexo"] == "Masculino"){echo 'checked="checked"';}?>/>Masculino</label><label><input name="sex" type="radio" value="Femenino"  <?php if($usuario["sexo"] == "Femenino"){ echo 'checked="checked"';}?> />Femenino</label></td>
+				<td><label><input name="sex" type="radio" value="Masculino" <?php if($usuario["sexo"] == "Masculino"){echo 'checked="checked"';}?>/>Masculino</label>
+				<label><input name="sex" type="radio" value="Femenino"  <?php if($usuario["sexo"] == "Femenino"){ echo 'checked="checked"';}?> />Femenino</label></td>
 			</tr>
 				<td>Pais:</td>
 				<td>
@@ -214,6 +216,11 @@ else
 			    	</select></label>
 			    	</div>
 				</td>
+			</tr>
+			<tr>
+				<td>Tipo Usuario:</td>
+				<td><label><input name="tipoUser" type="radio" value="1" <?php if($usuario["admin"] == 1){echo 'checked="checked"';}?>/>Administrador</label>
+				<label><input name="tipoUser" type="radio" value="0"  <?php if($usuario["admin"] == 0){ echo 'checked="checked"';}?> />Usuario Normal</label></td>
 			</tr>
 			<tr>
 				<td colspan="2" align="right"><input type="submit" id="sbGuardarPerfil" name="sbGuardarPerfil" value="Guardar" class="boton" /></td>
