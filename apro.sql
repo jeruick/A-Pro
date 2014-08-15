@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 14-08-2014 a las 22:18:07
+-- Tiempo de generación: 15-08-2014 a las 02:45:53
 -- Versión del servidor: 5.6.12-log
 -- Versión de PHP: 5.4.16
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `articulo` (
   `id_usuario` int(10) NOT NULL,
   `id_categoria` int(3) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=62 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=77 ;
 
 --
 -- Volcado de datos para la tabla `articulo`
@@ -71,10 +71,10 @@ INSERT INTO `articulo` (`id`, `nombre_articulo`, `marca`, `precio_unidad`, `cant
 (22, 'Reloj Dama_Lacoste', 'Lacoste', 2300, 2, 5, 0, '', 'relojLacoste2.png', 1, 9),
 (23, 'Zapatos DKNY_negros_Mujer', 'DKNY', 950, 1, 4, 0, 'negros, zize 8', 'zapatosLoubotin.png', 1, 9),
 (24, 'Perfume 212 Vip Dama', 'Carolina Herrera', 900, 2, 5, 10, '', '212VIP.png', 3, 10),
-(25, 'Adorno para mesa_ hogar', 'DecoArt', 300, 3, 5, 2, 'pelotas naranja para centro de mesa', 'adornos.png', 1, 8),
+(25, 'Adorno para mesa_ hogar', 'DecoArt', 300, 3, 5, 2, 'pelotas naranja para centro de mesa', 'adornos.png', 1, 1),
 (26, 'Locion Hombre_Aqua Bvlgari', 'Bvlgari', 2400, 1, 5, 0, '', 'aquaBulgari.png', 2, 10),
 (27, 'Locion Armani_Code de Hombre', 'Armani', 250, 1, 5, 0, '', 'Armanicode.png', 3, 10),
-(28, 'Equpo con base para Ipod ', 'Philips', 5500, 1, 5, 0, '', 'base_reproductor.png', 1, 8),
+(28, 'Equpo con base para Ipod ', 'Philips', 5500, 1, 5, 0, '', 'base_reproductor.png', 1, 2),
 (29, 'Bolso de Viaje_ Cuero', 'Bvlgari', 2500, 1, 4, 2, '', 'bolsoCuero.png', 2, 5),
 (30, 'Maleta Lous Vuitton_Viaje', 'Lous Vuitton', 2300, 2, 5, 6, '', 'bolsoLV.png', 3, 5),
 (31, 'Bolso de Mujer_viaje_LV', 'Lous Vuitton', 2000, 2, 5, 0, '', 'bolsoLV2.png', 1, 5),
@@ -83,31 +83,46 @@ INSERT INTO `articulo` (`id`, `nombre_articulo`, `marca`, `precio_unidad`, `cant
 (34, 'Camara Video_Canon', 'Canon', 4500, 1, 4, 5, '', 'camvideo.png', 3, 12),
 (35, 'Camara fotografica_canon', 'Canon', 5000, 1, 5, 0, '', 'canon.png', 2, 12),
 (36, 'Perfume_mujer_cocoChannel', 'Channel', 2300, 1, 5, 0, '', 'cocoChannel.png', 1, 10),
-(37, 'Equipo de Sonido', 'Sony', 6500, 1, 5, 7, '', 'EquipoSonido.png', 3, 8),
+(37, 'Equipo de Sonido', 'Sony', 6500, 1, 5, 7, '', 'EquipoSonido.png', 3, 2),
 (38, 'Escritorio_O', '', 0, 1, 1, 0, '', '', 0, 0),
 (39, 'Escritorio_Oficina', 'DecoArt', 5500, 1, 5, 0, '', 'escritorio.png', 2, 13),
 (40, 'Locion para Hombre_HugoBoss', 'Hugo Boss', 2300, 2, 5, 0, '', 'HB.png', 3, 10),
 (41, 'Impresora_oficina', 'Canon', 3400, 1, 5, 0, '', 'impresora.png', 2, 6),
 (42, 'Impresora_multifuncional', 'Epson', 4500, 1, 5, 0, '', 'impresoraEpson.png', 2, 6),
-(43, 'Set_DeJarrones_para Decoracion', 'DecoArt', 500, 1, 5, 0, '', 'jarrones.png', 1, 8),
+(43, 'Set_DeJarrones_para Decoracion', 'DecoArt', 500, 1, 5, 0, '', 'jarrones.png', 1, 1),
 (44, 'Pictionary_juego de mesa', 'Hasbro', 300, 1, 5, 1, '', 'juegomesa.png', 1, 4),
 (45, 'Juguete_timon_para Niño', 'Hasbro', 300, 1, 5, 0, '', 'juguetetimon.png', 2, 4),
-(46, 'Lamparas ', 'DecoArt', 1200, 2, 5, 0, '', 'lampara.png', 1, 8),
+(46, 'Lamparas ', 'DecoArt', 1200, 2, 5, 0, '', 'lampara.png', 1, 1),
 (47, 'Televisor LCD', 'Sony', 5000, 1, 5, 0, '', 'lcd.png', 2, 2),
 (48, 'Locion Blue_Nautica para Hombre', 'Nautica', 2400, 1, 5, 0, '', 'locionNautica.png', 3, 10),
 (49, 'Camara fotografica Lumix', 'Lumix', 4500, 1, 5, 0, '', 'lumix.png', 2, 12),
 (50, 'Set de Bolsos para viaje', 'Lous Vuitton', 2500, 1, 5, 0, '', 'maletaybolso.png', 1, 5),
 (51, 'Set de MAquillaje', 'Lamcome', 2000, 1, 5, 3, '', 'maquillaje.png', 1, 10),
-(52, 'Mesa Vidrio_LivingRoom', 'DecoArt', 2200, 1, 5, 1, '', 'mesacentral.png', 2, 8),
-(53, 'Mesa_para Living Room', 'DecoArt', 3000, 1, 5, 1, '', 'mesaDecoracion.png', 1, 8),
+(52, 'Mesa Vidrio_LivingRoom', 'DecoArt', 2200, 1, 5, 1, '', 'mesacentral.png', 2, 1),
+(53, 'Mesa_para Living Room', 'DecoArt', 3000, 1, 5, 1, '', 'mesaDecoracion.png', 1, 1),
 (54, 'Camara Nikon_fotografica', 'Nikon', 6000, 1, 5, 0, '', 'nikon.png', 2, 12),
 (55, 'Perforadora_oficina', 'Epson', 3000, 1, 5, 0, '', 'perforadora.png', 2, 6),
 (56, 'Juego de Bolsos_Viaje', 'Lous Vuitton', 5000, 1, 5, 0, '', 'SetBolsosLV.png', 1, 5),
 (57, 'Silla rotatoria_oficina', 'SFEF', 900, 1, 4, 0, '', 'silla.png', 3, 6),
-(58, 'Silla de jardin', 'DecoArt', 1200, 1, 5, 0, '', 'sillapiscina.png', 2, 8),
-(59, 'Silla_metalica_hogar', 'DecoArt', 2300, 1, 5, 0, '', 'Silla_metal.png', 3, 8),
+(58, 'Silla de jardin', 'DecoArt', 1200, 1, 5, 0, '', 'sillapiscina.png', 2, 1),
+(59, 'Silla_metalica_hogar', 'DecoArt', 2300, 1, 5, 0, '', 'Silla_metal.png', 3, 1),
 (60, 'Camara_digital_fotografica ', 'Sony', 5400, 1, 5, 0, '', 'sonycibershot.png', 2, 12),
-(61, 'Teatro en Casa', 'LG', 6500, 1, 5, 1, '', 'teatroenCasa.png', 3, 2);
+(61, 'Teatro en Casa', 'LG', 6500, 1, 5, 1, '', 'teatroenCasa.png', 3, 2),
+(62, 'Amortiguadores', 'xxxxxx', 500, 4, 5, 5, '', 'amortiguadores.png', 3, 11),
+(63, 'Llantas', 'Bridgestone', 800, 2, 5, 10, '', 'llantas.png', 2, 11),
+(64, 'Casco Motocicleta', 'Yamaha', 1000, 1, 5, 10, '', 'casco.png', 2, 11),
+(65, 'Rines para LLanta', 'Bridgestone', 1200, 4, 5, 10, '20 plgs', 'rin_llanta.png', 3, 11),
+(66, 'Camara de Video', 'Sony', 8000, 1, 4, 15, '', 'camara_video.png', 1, 7),
+(67, 'Bicicleta Estatica', 'Weston', 4400, 1, 4, 20, '', 'bici_estatica.png', 2, 3),
+(68, 'Maquina de Ejercicio', 'Weston', 3000, 1, 5, 5, '', 'maquina_ejercicio.png', 3, 3),
+(69, 'Maquina de Pesas', 'Wilson', 5500, 1, 5, 10, '', 'maquina_pesas.png', 2, 3),
+(70, 'Mesa de Pin Pon', 'Weston', 3400, 1, 4, 10, '', 'mesa_pingpong.png', 1, 3),
+(71, 'Pesas !kg', 'Wilson', 200, 2, 4, 15, '', 'pesas.png', 1, 3),
+(72, 'Raquetas de Tenis', 'Wilson', 350, 2, 5, 20, '', 'raquetas.png', 3, 3),
+(73, 'Archivero de Oficina', 'dfsdfdfsd', 4300, 1, 4, 5, '', 'archivero.png', 3, 8),
+(74, 'Escritorio para PC', 'DecoArt', 3500, 1, 5, 23, '', 'escritorio_pc.png', 2, 8),
+(75, 'Escritorio Oficina', 'DecoArt', 3000, 1, 4, 10, '', 'escritorio1.png', 2, 8),
+(76, 'Silla Ejecutiva', 'DecoArt', 2300, 1, 5, 20, '', 'silla_ejecutiva.png', 1, 8);
 
 -- --------------------------------------------------------
 
@@ -350,9 +365,7 @@ INSERT INTO `usuario` (`id`, `nombre_usuario`, `fecha_nacimiento`, `sexo`, `nume
 (2, 'Edson Froylan Bonilla', '1990-05-06', 'Masculino', '22551043', 'edson_bonilla@hotmail.com', '822d163155fcfc5f88618dae47d4a38d', 'edson.jpg', 11, 0),
 (3, 'Erick Alexander Zelaya', '1991-12-24', 'Masculino', '22304585', 'erick_zelaya@yahoo.com', '5b7179cff6a78c5e43ea6acaefb21431', 'erick.jpg', 12, 0),
 (4, 'Ana Izaguirre', '1991-02-02', 'Femenino', '22697845', 'ana_izaguirre@gmail.com', 'c5c5ef2caf75f0756da2a9b38d586782', 'ana.jpg', 31, 0),
-(14, 'Roos Geller', '2014-08-01', 'Masculino', '23423423', 'rossy@yahoo.com', '078d2bb3be8edc3e4658ef90e19f76c4', 'ross.jpg', 5, 0),
-(15, 'Once The Fad', '2014-08-01', 'Masculino', '23423423', 'jeruick@hotmail.com', 'd012b5c1ee6401c5537814f35a644234', 'usuario_sin_foto.jpg', 62, 0),
-(16, 'Fucking Fad', '2014-08-07', 'Masculino', '23423432', 'jeruick@gmail.com', 'd012b5c1ee6401c5537814f35a644234', 'bad3.jpg', 58, 0);
+(14, 'Roos Geller', '2014-08-01', 'Masculino', '23423423', 'rossy@yahoo.com', '078d2bb3be8edc3e4658ef90e19f76c4', 'ross.jpg', 5, 0);
 
 -- --------------------------------------------------------
 
