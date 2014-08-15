@@ -23,9 +23,15 @@ $(document).ready(function(){
       $(".detalles").on("click", mostrarDetalles);
       $(".perfil").on("click",mostrarPerfil);
       $(".misArticulos").on("click",misArticulos);
+      $(".usuarios").on("click", listarUsuarios);
 
       
 		});
+    function listarUsuarios()
+    {
+      $(location).attr('href','listar_usuarios.php');
+    }
+    
     function misArticulos()
     {
       $(location).attr('href','historial_venta.php');

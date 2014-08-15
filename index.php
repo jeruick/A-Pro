@@ -1,6 +1,7 @@
 <?php 
   session_start();
   require_once("conexion.php");
+  require_once("articulos_mas_vistos.php");
   $result = mysqli_query($conexion, "SELECT * FROM categoria");
   $result2 = mysqli_query($conexion, "SELECT * FROM categoria");
 
@@ -11,24 +12,6 @@
     $rowUser = mysqli_fetch_assoc($user);
   }
 
-  $consulta = "SELECT T1.id, T1.nombre_articulo, T1.foto_articulo, T1.visitas, T1.id_categoria, 
-          T1.marca,T1.precio_unidad, T2.nombre_categoria FROM 
-((SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 1 AND cantidad > 0 ORDER BY VISITAS DESC LIMIT 5) UNION
-(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 2  AND cantidad > 0 ORDER BY VISITAS DESC LIMIT 5) UNION 
-(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 3  AND cantidad > 0 ORDER BY VISITAS DESC LIMIT 5) UNION
-(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 4  AND cantidad > 0 ORDER BY VISITAS DESC LIMIT 5) UNION
-(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 5  AND cantidad > 0 ORDER BY VISITAS DESC LIMIT 5) UNION
-(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 6  AND cantidad > 0 ORDER BY VISITAS DESC LIMIT 5) UNION
-(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 7  AND cantidad > 0 ORDER BY VISITAS DESC LIMIT 5) UNION
-(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 8  AND cantidad > 0 ORDER BY VISITAS DESC LIMIT 5) UNION
-(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 9  AND cantidad > 0 ORDER BY VISITAS DESC LIMIT 5 ) UNION
-(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 10 AND cantidad > 0 ORDER BY VISITAS DESC LIMIT 5) UNION 
-(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 11 AND cantidad > 0 ORDER BY VISITAS DESC LIMIT 5) UNION
-(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 12 AND cantidad > 0 ORDER BY VISITAS DESC LIMIT 5) UNION
-(SELECT * FROM ARTICULO WHERE ID_CATEGORIA = 13 AND cantidad > 0 ORDER BY VISITAS DESC LIMIT 5)) AS T1,
-(SELECT id_categoria, nombre_categoria FROM ARTICULO, CATEGORIA WHERE ARTICULO.ID_CATEGORIA = CATEGORIA.ID
-GROUP BY ID_CATEGORIA ORDER BY SUM(VISITAS) DESC LIMIT 5 ) AS T2 WHERE T1.ID_CATEGORIA = T2.ID_CATEGORIA";
-$resultado = mysqli_query($conexion, $consulta);
 $i = 5;
 
 ?>
@@ -37,7 +20,7 @@ $i = 5;
 <head>
 	 <title>APro Tienda en line Electronica| Moda |Deportes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    
+    <meta charset="ISO-" /> 
     <link rel="stylesheet" href="css/bootstrap.css" />
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/estiloLogin.css" />
@@ -157,11 +140,17 @@ $i = 5;
             <div class="dropdown-user">
               <a class="account" onClick="mostrarMenuUsuario(this)"><a id="userPhoto" href="#" style="position:relative; top: -20px;"><img src="<?php echo 'foto_perfil/'.$rowUser["foto_usuario"]; ?>" style="border-radius: 50%;width:50px;height:50px;" /></a></a>
               <div class="submenu" style="display: none;">
-                <ul class="root">     
+                <ul class="root">  
+                  <?php if($rowUser["admin"] == "1") { ?>   
+                    <li><a class="perfil">Perfil</a></li>
+                    <li><a class="usuarios">Usuarios</a></li>
+                    <li><a class="logout" >Logout</a></li>
+                  <?php }else{  ?>
                     <li><a class="perfil">Perfil</a></li>
                     <li><a class="historial" >Historial</a></li>
                     <li><a class="misArticulos" >Mis Articulos</a></li>
                     <li><a class="logout" >Logout</a></li>
+                  <?php } ?>
                   </ul>
               </div>
             </div> 
