@@ -1,7 +1,6 @@
 <?php
 require_once("conexion.php");
 session_start();
-$id = -1;
 if(isset($_SESSION["usuario_valido"]))
 {
 
@@ -41,16 +40,8 @@ if(isset($_POST["txtNombre"]))
 	    }
 }
 
- $consulta = "SELECT nombre_usuario, fecha_nacimiento, sexo, numero_telefonico, foto_usuario, contrasena,
-        correo_electronico, nombre_ciudad, nombre_pais, id_pais, id_ciudad
-        FROM usuario, ciudad, pais 
-        WHERE usuario.id = $id AND usuario.id_ciudad = ciudad.id AND ciudad.id_pais = pais.id";
-
-  $result = mysqli_query($conexion, $consulta);
-
-
 // ACTUALIZACION DE CONTRASENA
-    if(isset($_POST["txtPass_nueva"]) && isset($_POST["txtConfirmar_pass"]) && isset($_POST["txtPass_anterior"]))
+       if(isset($_POST["txtPass_nueva"]) && isset($_POST["txtConfirmar_pass"]) && isset($_POST["txtPass_anterior"]))
       {  
         $con_pass = "SELECT contrasena FROM usuario WHERE id= $id";
         $fila = mysqli_query($conexion, $con_pass);
@@ -72,10 +63,19 @@ if(isset($_POST["txtNombre"]))
       }
 
 
+   $consulta = "SELECT nombre_usuario, fecha_nacimiento, sexo, numero_telefonico, foto_usuario,
+				correo_electronico, nombre_ciudad, nombre_pais, id_pais, id_ciudad
+				FROM usuario, ciudad, pais 
+				WHERE usuario.id = $id AND usuario.id_ciudad = ciudad.id AND ciudad.id_pais = pais.id";
+
+	$result = mysqli_query($conexion, $consulta);
+
+
 }
 else{
-      header("location: index.php"); }
 
+	header("location: index.php");
+}
 $consulta2 = "SELECT * FROM pais";
 $consulta3 = "SELECT * FROM ciudad";
 $result2 = mysqli_query($conexion, $consulta2);
@@ -85,315 +85,13 @@ $result3= mysqli_query($conexion,$consulta3);
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<meta charset="utf-8"> 
+	<title>Perfil de usuario</title>
+  <meta charset="utf-8" />
   <link rel="stylesheet" href="css/globals.css">
-	<style type="text/css">
-    body
-    {
-      background: rgba(0,0,0,0.1); 
-      margin: 0;
-      padding: 0;
-    }
-    div
-    {
-
-      margin: 0;
-      border: 0;
-      padding: 0;
-    }
-    footer
-    {
-      background: rgba(0,0,0,0.7);
-      bottom:0;
-      left: 0;
-      position: fixed;
-      padding: 1em;
-      width: 100%;
-
-    }
-    header
-    {
-      background: #6AC0EF;
-    
-    }
-    input[type=text],input[type=password]
-      {
-      border: 1px solid #DBE1EB;
-      font-size: 18px;
-      font-family: Arial, Verdana;
-      padding: 5px;
-      border-radius: 4px;
-      -moz-border-radius: 4px;
-      -webkit-border-radius: 4px;
-      -o-border-radius: 4px;
-      background: #FFFFFF;
-      background: linear-gradient(left, #FFFFFF, #F7F9FA);
-      background: -moz-linear-gradient(left, #FFFFFF, #F7F9FA);
-      background: -webkit-linear-gradient(left, #FFFFFF, #F7F9FA);
-      background: -o-linear-gradient(left, #FFFFFF, #F7F9FA);
-      color: #2E3133;
-      width: 250px;
-    }
-
-    input[type=submit]
-    {
-      border: 1px solid #DBE1EB;
-      font-size: 16px;
-      font-family: Arial, Verdana;
-      padding: 5px;
-      border-radius: 4px;
-      background-color: #0152CD;
-      color:white;
-      cursor: pointer;
-      
-    }
-    
-    input[type=text]:focus
-    {
-    color: #2E3133;
-    border-color: #6AC0EF;
-    }
-    select 
-    {
-        padding:3px;
-        margin: 0;
-        -webkit-border-radius:4px;
-        -moz-border-radius:4px;
-        border-radius:4px;
-        -webkit-box-shadow: 0 3px 0 #ccc, 0 -1px #fff inset;
-        -moz-box-shadow: 0 3px 0 #ccc, 0 -1px #fff inset;
-        box-shadow: 0 3px 0 #ccc, 0 -1px #fff inset;
-        background: #f8f8f8;
-        color:#888;
-        border:none;
-        outline:none;
-        display: inline-block;
-        -webkit-appearance:none;
-        -moz-appearance:none;
-        appearance:none;
-        cursor:pointer;
-        width: 200px;
-
-    }
-
-    /* Targetting Webkit browsers only. FF will show the dropdown arrow with so much padding. */
-    @media screen and (-webkit-min-device-pixel-ratio:0) {
-        select {padding-right:18px}
-    }
-
-    .selection {position:relative}
-    .selection:after {
-        content:'<>';
-        font:11px "Consolas", monospace;
-        color:#aaa;
-        -webkit-transform:rotate(90deg);
-        -moz-transform:rotate(90deg);
-        -ms-transform:rotate(90deg);
-        transform:rotate(90deg);
-        right:8px; top:2px;
-        padding:0 0 2px;
-        border-bottom:1px solid #ddd;
-        position:absolute;
-        pointer-events:none;
-    }
-    .selection:before {
-        content:'';
-        right:6px; top:0px;
-        width:20px; height:20px;
-        background:#f8f8f8;
-        position:absolute;
-        pointer-events:none;
-        display:block;
-    }
-
-    #opciones
-    {
-      background: rgba(0,0,0,0.5);
-      width: 12%;
-      display: inline-block;
-      height: 650px;
-      
-      
-    }
-    #opciones ul 
-    {
-      border-radius: 5px;
-      color:rgba(255,255,255,0.5);
-      list-style: none; 
-      padding: 0;
-
-    }
-    #opciones ul li
-    {
-      padding: 0.5em 0;
-    
-    }
-    #opciones ul li:hover
-    {
-      background: #3f9db8;
-      color: white;
-      cursor: pointer;
-      padding-left: 5px; 
-    }
-    #info_usuario
-    {
-    	width: 87.5%;
-      height: 600px;
-    }
-     #opciones, #info_usuario
-    {
-      display: inline-block;
-      margin: 0;
-      vertical-align: top;
-    }
-    #title
-    {
-      border: 1px solid white;
-      background: white;
-      width: 100%;
-    }
-    #title h3
-    {
-      margin: 5px;
-    }
-    .oculto
-    {
-    	display: none;
-    }
-
-.nice {
-  font-family: arial;
-  font-size: 12px;
-  -webkit-box-shadow: 0px 1px 0px #fff, 0px -1px 0px rgba(0,0,0,.1);
-  -moz-box-shadow: 0px 1px 0px #fff, 0px -1px 0px rgba(0,0,0,.1);
-  box-shadow: 0px 1px 0px #fff, 0px -1px 0px rgba(0,0,0,.1); 
-  -moz-border-radius: 4px; 
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-}
-.nice .NFI-button {
-  -moz-border-radius-topleft: 3px; 
-  -moz-border-radius-bottomleft: 3px;
-  -webkit-border-top-left-radius: 3px;
-  -webkit-border-bottom-left-radius: 3px;
-  border-top-left-radius: 3px; 
-  border-bottom-left-radius: 3px;
-
-  background-color: #0192DD;
-
-  background-image: linear-gradient(bottom, #1774A3 0%, #0194DD 56%);
-  background-image: -o-linear-gradient(bottom, #1774A3 0%, #0194DD 56%);
-  background-image: -moz-linear-gradient(bottom, #1774A3 0%, #0194DD 56%);
-  background-image: -webkit-linear-gradient(bottom, #1774A3 0%, #0194DD 56%);
-  background-image: -ms-linear-gradient(bottom, #1774A3 0%, #0194DD 56%);
-  background-image: -webkit-gradient(
-    linear,
-    left bottom,
-    left top,
-    color-stop(0, #1774A3),
-    color-stop(0.56, #0194DD)
-  );
-  text-shadow: 0px -1px 0px #0172bd;
-  border: solid #0172bd 1px;
-  border-bottom: solid #00428d 1px;
-  
-  -webkit-box-shadow: inset 0px 1px 0px rgba(255,255,255,.2);
-  -moz-box-shadow: inset 0px 1px 0px rgba(255,255,255,.2);
-  box-shadow: inset 0px 1px 0px rgba(255,255,255,.2);   
-  
-  color: #fff;
-  width: 100px;
-  height: 30px;
-  line-height: 30px;
-}
-.nice .NFI-filename {
-  -moz-border-radius-topright: 3px; 
-  -moz-border-radius-bottomright: 3px;
-  -webkit-border-top-right-radius: 3px;
-  -webkit-border-bottom-right-radius: 3px;
-  border-top-right-radius: 3px; 
-  border-bottom-right-radius: 3px;
-
-  width: 200px;
-  border: solid #777 1px;
-  border-left: none;
-  height: 30px;
-  line-height: 30px;
-  
-  background: #fff;
-  -webkit-box-shadow: inset 0px 2px 0px rgba(0,0,0,.05);
-  -moz-box-shadow: inset 0px 2px 0px rgba(0,0,0,.05);
-  box-shadow: inset 0px 2px 0px rgba(0,0,0,.05); 
-
-  color: #777;
-  text-shadow: 0px 1px 0px #fff;
-}
-
-	</style>
+	<link rel="stylesheet" type="text/css" href="css/perfil.css">
   <script src="js/jquery.js"></script>
   <script src="js/nicefileinput.js"></script>
-    <script type="text/javascript">
-
-    $(document).on("ready", listo);
-
-    function listo ()
-    {
-      $("#txtNumeroT").on("keypress", esNumero);
-      $("input[type=file]").nicefileinput();
-    }
-
-    function esNumero(event)
-    {
-      
-      if(isNaN(event.key) && event.charCode != 0)
-      {
-        event.preventDefault();
-      }
-    }
-     function mostrar_ocultos(id)
-      {
-        var perfil = document.getElementById("informacion_perfil");
-        var pass = document.getElementById("dv_contrasena");
-        var editarP = document.getElementById("editar_perfil");
-        var bt = document.getElementById("sbGuardar");
-
-        var items = $("#opciones li");
-        $.each(items, function(index, val) {
-           /* iterate through array or object */
-           alert
-           if($(val).attr('value') != id)
-           {
-              $(val).css('color','rgba(255,255,255,0.5)');
-           }
-           else
-           {
-              $(val).css('color','white');
-              $("h3").html($(val).attr("name"));
-           }
-        });
-
-        if(id == "editar_perfil"){
-          perfil.style.display = 'none'
-          editarP.style.display = 'block';
-          pass.style.display = 'none';
-          bt.style.display = 'block';
-
-        }
-        else if( id== "dv_contrasena"){
-
-            perfil.style.display = 'none';
-          editarP.style.display = 'none';
-          pass.style.display = 'block';
-        }
-        else if(id == "informacion_perfil"){
-            
-            perfil.style.display = 'block'
-          editarP.style.display = 'none';
-          pass.style.display = 'none';
-        }
-   }
-  </script>
+  <script src="js/perfil.js"></script>
 </head>
 <body>
   <header><a href="index.php"><img src="img/home1.png"></a></header>
@@ -517,132 +215,10 @@ $result3= mysqli_query($conexion,$consulta3);
   		</tr>
   	</table>
    </form>
-   <input type="hidden" id="txtId" name= "txtId" value="<?php echo $id;?>" />
+   <input type="hidden" id="txtId" name= "txtId" value= "<?php echo $id ?>" /> 
   </div>
 </div>
 
-<script type="text/javascript">
-
-	var xmlAjax;
-	  if(window.XMLHttpRequest) 
-      {
-        xmlAjax = new XMLHttpRequest();
-      } 
-      else 
-      {
-        xmlAjax = new ActiveXObject("Microsoft.XMLHTTP");
-      }
-
-	function filtrar() 
-    { 
-        xmlAjax.onreadystatechange = function()
-        {
-        if(xmlAjax.readyState == 4) 
-        {
-          if(xmlAjax.status == 200) 
-          {//satisfactorio
-
-            var sel = document.getElementById("selCiudad");
-
-            if(xmlAjax.responseText != "")
-            {
-              sel.innerHTML = xmlAjax.responseText;
-            }
-            else
-            {
-              document.getElementById('selCiudad').style.display = 'none';       
-            }
-            
-          }
-          else 
-          {//error
-            alert("error");
-          }
-        }
-      }
-        var consulta = document.getElementById("Slpais").value;
-
-        xmlAjax.open("GET","filtro_ciudades.php?consulta=" + consulta, true);
-        xmlAjax.send();
-    } 
-
-    function Comprobar_Contrasena()
-    { 
-       xmlAjax.onreadystatechange = function()
-        {
-        if(xmlAjax.readyState == 4) 
-        {
-          if(xmlAjax.status == 200) 
-          {
-
-            var div = document.getElementById("msj_Wpass");
-
-            if(xmlAjax.responseText != "")
-            {
-               div.innerHTML = xmlAjax.responseText;
-            }
-            else
-            {
-              document.getElementById('msj_Wpass').style.display = 'none';       
-            }
-            
-          }
-          else 
-          {
-            alert("error");
-          }
-        }
-      }
-        var pass = document.getElementById("txtPass_anterior").value;
-        var id = document.getElementById("txtId").value; 
-        xmlAjax.open("GET","ComprobarPass.php?id="+ id + "&pass=" + pass, true);
-        xmlAjax.send();
-    }
-
-    function Nueva_Contrasena()
-    {
-      var xmlAjax1;
-    if(window.XMLHttpRequest) 
-      {
-        xmlAjax1 = new XMLHttpRequest();
-      } 
-      else 
-      {
-        xmlAjax1 = new ActiveXObject("Microsoft.XMLHTTP");
-      }
-       
-      xmlAjax1.onreadystatechange = function()
-      {
-        if(xmlAjax1.readyState == 4) 
-        {
-          if(xmlAjax1.status == 200) 
-          {
-
-            var div = document.getElementById("msj_WNpass");
-
-            if(xmlAjax1.responseText != "")
-            {
-               div.innerHTML = xmlAjax1.responseText;
-            }
-            else
-            {
-              document.getElementById('msj_WNpass').style.display = 'none';       
-            }
-            
-          }
-          else 
-          {
-            alert("error");
-          }
-        }
-      }
-        var texto1 = document.getElementById("txtPass_nueva").value;
-        var texto2 = document.getElementById("txtConfirmar_pass").value;
-        xmlAjax1.open("GET","nueva_pass.php?texto1="+ texto1 + "&texto2=" + texto2, true);
-        xmlAjax1.send();
-    }
-
-</script>
 <footer>&nbsp</footer>
 </body>
 </html>

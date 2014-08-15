@@ -1,9 +1,9 @@
 <?php
   	require_once("conexion.php");
-  	//session_start();
-	//if(isset($_SESSION["usuario_valido"]))
-	//{
-		$id = 1; // <----$id= $_SESSION["usuario_valido"];
+  	session_start();
+	if(isset($_SESSION["usuario_valido"]))
+	{
+		$id= $_SESSION["usuario_valido"];
 
 
 	  if (isset($_POST["txtNombre"]))
@@ -42,10 +42,7 @@
       $consulta = "SELECT * FROM categoria";
       $result1 = mysqli_query($conexion, $consulta);
 
-	//}
-	  //else{
-	  	//header("")
-	  //}
+	}
 ?>
 <!DOCTYPE html>
 <html lang="es">

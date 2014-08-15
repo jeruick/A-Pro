@@ -19,7 +19,7 @@ if (isset($_POST["name"]) && isset($_POST["date"]) && isset($_POST["sex"]) && is
 	
 	$ciudad = $_POST["selCiudad"];
 
-	$consultaRegistroUsuario = "INSERT INTO usuario VALUES (NULL, '$nombreUsuario', '$fechaNacimiento', '$sexo', '$numeroTelefono', '$correoElectronico', '$contrasena_cod', '$fotografia', '$ciudad');";
+	$consultaRegistroUsuario = "INSERT INTO usuario VALUES (NULL, '$nombreUsuario', '$fechaNacimiento', '$sexo', '$numeroTelefono', '$correoElectronico', '$contrasena_cod', '$fotografia', '$ciudad', 0);";
 	$resultado = mysqli_query($conexion, $consultaRegistroUsuario);
 
 	if (file_exists("foto_perfil/" . $_FILES["picture"]["name"])) {

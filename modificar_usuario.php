@@ -1,7 +1,8 @@
 <?php
 require_once("conexion.php");
 session_start();
-//if(isset($_SESSION["usuario_valido"])){
+if(isset($_SESSION["usuario_valido"]))
+{
  $id= $_GET["id"];
 
 if(isset($_POST["txtNombre"]))
@@ -49,9 +50,9 @@ $consulta3 = "SELECT * FROM ciudad";
 $result2 = mysqli_query($conexion, $consulta2);
 $result3= mysqli_query($conexion,$consulta3);
 
-//}
-//else
-//	{ header("location: index.php"); }
+}
+else
+{ header("location: index.php"); }
 
 ?>
 
