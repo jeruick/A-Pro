@@ -124,7 +124,7 @@ $i = 5;
               </div><!-- /btn-group -->
               <input type="text" name="text" class="form-control" style="width:400px;" autocomplete="off">
               <span class="input-group-btn" style="width:100px;">
-              <button id="searchButton"  class="btn btn-default" type="submit" style="height:40px;"><img src="icons/search.png"></button>
+              <button id="searchButton" name="cat" class="btn btn-default" type="submit" style="height:40px;"><img src="icons/search.png"></button>
               </span>
               <div id="coincidencias"></div>
             </div><!-- /input-group -->

@@ -1,21 +1,44 @@
 <?php
 	require_once("conexion.php");
   session_start();
-	if(isset($_GET["text"]))
+  $nombre_categoria = "Categorias";
+	if(isset($_GET["text"]) && isset($_GET["cat"]))
 	{
-		$texto = $_GET["text"];
-		$result = mysqli_query($conexion, "SELECT * FROM articulo WHERE nombre_articulo LIKE '%$texto%' AND cantidad > 0");
-    
-    while ($articulo = mysqli_fetch_assoc($result))
-    {
-      $id_articulo = $articulo["id"];
-      mysqli_query($conexion, "UPDATE articulo SET visitas = visitas + 1 WHERE id = $id_articulo");
-    }
-    mysqli_data_seek($result, 0);
-    
+      if(!empty($_GET["cat"]))
+      {
+        $texto = $_GET["text"];
+       $categoria = $_GET["cat"];
+       $query = "SELECT * FROM articulo WHERE nombre_articulo LIKE '%$texto%' AND id_categoria = $categoria AND cantidad > 0";
+        $result = mysqli_query($conexion, $query);
+        
+        while ($articulo = mysqli_fetch_assoc($result))
+        {
+          $id_articulo = $articulo["id"];
+          mysqli_query($conexion, "UPDATE articulo SET visitas = visitas + 1 WHERE id = $id_articulo");
+        }
+        mysqli_data_seek($result, 0);         
+        $resultCat = mysqli_query($conexion, "SELECT * FROM categoria WHERE id = $categoria");
+        $fetch = mysqli_fetch_assoc($resultCat);
+        $nombre_categoria = $fetch["nombre_categoria"];
+      }
+      else
+      {
+        $texto = $_GET["text"];
+        $result = mysqli_query($conexion, "SELECT * FROM articulo WHERE nombre_articulo LIKE '%$texto%' AND cantidad > 0");
+        
+        while ($articulo = mysqli_fetch_assoc($result))
+        {
+          $id_articulo = $articulo["id"];
+          mysqli_query($conexion, "UPDATE articulo SET visitas = visitas + 1 WHERE id = $id_articulo");
+        }
+        mysqli_data_seek($result, 0);
+      }
+	     
+      
 	}
+
 	else
-	{
+  {
 		$texto = "Mostrar Productos";
 		$result = mysqli_query($conexion, "SELECT * FROM articulo");
 	}
@@ -235,7 +258,7 @@
           <div class="col-lg-6">
             <div class="input-group">
               <div class="input-group-btn">
-                <button type="button" id="catSeleccionada" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="height:40px;width: 150px;font-size:10px;">Categorias<span class="caret"></span></button>
+                <button type="button" id="catSeleccionada" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="height:40px;width: 150px;font-size:10px;"><?php echo $nombre_categoria ?><span class="caret"></span></button>
                 <ul class="dropdown-menu" role="menu">
                   <?php while($row = mysqli_fetch_assoc($result2))
                   {
@@ -249,7 +272,7 @@
               </div><!-- /btn-group -->
               <input type="text" name="text" class="form-control" style="width:400px;" autocomplete="off" value="<?php echo $texto; ?>">
               <span class="input-group-btn" style="width:100px;">
-                <button id="searchButton"  class="btn btn-default" type="submit" style="height:40px;"><img src="icons/search.png"></button>
+                <button id="searchButton" name="cat" class="btn btn-default" type="submit" style="height:40px;"><img src="icons/search.png"></button>
               </span>
               <div id="coincidencias"></div>
             </div><!-- /input-group -->
@@ -266,11 +289,17 @@
               <a class="account" onClick="mostrarMenuUsuario(this)"><a id="userPhoto" href="#" style="position:relative; top: -20px;"><img src="<?php echo 'foto_perfil/'.$rowUser["foto_usuario"]; ?>" style="border-radius: 50%;width:50px;height:50px;" /></a></a>
               <div class="submenu" style="display: none;">
                 <ul class="root">     
-                    <li><a class="perfil"  href="#" >Perfil</a></li>
-                    <li><a class="historial"  href="#">Historial</a></li>
-                    <li><a class="misArticulos" href="#">Mis Articulos</a></li>
-                    <li><a class="logout"  href="#">Logout</a></li>
-                  </ul>
+                  <?php if($rowUser["admin"] == "1") { ?>   
+                    <li><a class="perfil">Perfil</a></li>
+                    <li><a class="usuarios">Usuarios</a></li>
+                    <li><a class="logout" >Logout</a></li>
+                  <?php }else{  ?>
+                    <li><a class="perfil">Perfil</a></li>
+                    <li><a class="historial" >Historial</a></li>
+                    <li><a class="misArticulos" >Mis Articulos</a></li>
+                    <li><a class="logout" >Logout</a></li>
+                  <?php } ?>
+                </ul>
               </div>
             </div> 
           <?php   

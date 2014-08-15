@@ -17,10 +17,16 @@ if (isset($_POST["correoElectronico"]) && isset($_POST["contrasena"])) {
         	<a class="account" onClick="mostrarMenuUsuario(this)"><span><a id="userPhoto" href="#" style="position:relative; top: -20px;"><img src="<?php echo 'foto_perfil/'.$registroUsuario["foto_usuario"]; ?>" style="border-radius: 50%;width:50px;height:50px;" /></a></span></a>
         	<div class="submenu" style="display: none;">
         		<ul class="root">     
-		            <li><a href="#Perfil" >Perfil</a></li>
-		            <li><a href="#Historial">Historial</a></li>
-		            <li><a href="#misArticulos">Mis Articulos</a></li>
-		            <li><a href="#logout">Logout</a></li>
+				  <?php if($registroUsuario["admin"] == "1") { ?>   
+                    <li><a class="perfil">Perfil</a></li>
+                    <li><a class="usuarios">Usuarios</a></li>
+                    <li><a class="logout" >Logout</a></li>
+                  <?php }else{  ?>
+                    <li><a class="perfil">Perfil</a></li>
+                    <li><a class="historial" >Historial</a></li>
+                    <li><a class="misArticulos" >Mis Articulos</a></li>
+                    <li><a class="logout" >Logout</a></li>
+                  <?php } ?>
           		</ul>
         	</div>
       	</div>

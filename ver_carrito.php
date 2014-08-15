@@ -40,7 +40,6 @@
 <head>
 	<title>Carrito de compras</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta charset="utf-8">    	
     <link rel="stylesheet" href="css/bootstrap.css" />
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/estiloLogin.css" />
@@ -205,7 +204,7 @@
               </div><!-- /btn-group -->
               <input type="text" name="text" class="form-control" style="width:400px;" autocomplete="off" value="<?php echo $texto; ?>">
               <span class="input-group-btn" style="width:100px;">
-                <button id="searchButton"  class="btn btn-default" type="submit" style="height:40px;"><img src="icons/search.png"></button>
+                <button id="searchButton" name="cat" class="btn btn-default" type="submit" style="height:40px;"><img src="icons/search.png"></button>
               </span>
               <div id="coincidencias"></div>
             </div><!-- /input-group -->
@@ -222,10 +221,16 @@
               <a class="account" onClick="mostrarMenuUsuario(this)"><a id="userPhoto" href="#" style="position:relative; top: -20px;"><img src="<?php echo 'foto_perfil/'.$rowUser["foto_usuario"]; ?>" style="border-radius: 50%;width:50px;height:50px;" /></a></a>
               <div class="submenu" style="display: none;">
                 <ul class="root">     
-                    <li><a class="perfil" href="#" >Perfil</a></li>
-                    <li><a class="historial" href="#">Historial</a></li>
-                    <li><a class="misArticulos" href="#">Mis Articulos</a></li>
-                    <li><a class="logout" href="#">Logout</a></li>
+				  <?php if($rowUser["admin"] == "1") { ?>   
+                    <li><a class="perfil">Perfil</a></li>
+                    <li><a class="usuarios">Usuarios</a></li>
+                    <li><a class="logout" >Logout</a></li>
+                  <?php }else{  ?>
+                    <li><a class="perfil">Perfil</a></li>
+                    <li><a class="historial" >Historial</a></li>
+                    <li><a class="misArticulos" >Mis Articulos</a></li>
+                    <li><a class="logout" >Logout</a></li>
+                  <?php } ?>
                   </ul>
               </div>
             </div> 

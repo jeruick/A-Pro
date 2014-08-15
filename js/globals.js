@@ -398,7 +398,7 @@ $(document).ready(function(){
 
     function seleccionarCategoria()
     {
-      $(this).attr('id');
+      $("#searchButton").attr("value",$(this).attr('id'));
       $("#catSeleccionada").html($(this).html());
       $(".dropdown-menu").toggle();
 
