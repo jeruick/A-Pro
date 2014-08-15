@@ -57,9 +57,9 @@ if(isset($_POST["txtNombre"]))
               $consultaPass = "UPDATE usuario SET contrasena = '$pass' WHERE id= $id"; 
               mysqli_query($conexion, $consultaPass);
               }
-              else{ echo "error1"; }
+              else{ echo "error al guardar"; }
          }
-         else{ echo "error"; }
+         else{ echo "error al guardar"; }
       }
 
 
