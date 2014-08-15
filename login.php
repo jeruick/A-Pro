@@ -18,14 +18,14 @@ if (isset($_POST["correoElectronico"]) && isset($_POST["contrasena"])) {
         	<div class="submenu" style="display: none;">
         		<ul class="root">     
 				  <?php if($registroUsuario["admin"] == "1") { ?>   
-                    <li><a class="perfil">Perfil</a></li>
-                    <li><a class="usuarios">Usuarios</a></li>
-                    <li><a class="logout" >Logout</a></li>
+                    <li><a onClick="mostrarPeril()" class="perfil">Perfil</a></li>
+                    <li><a onClick="listarUsuarios()" class="usuarios">Usuarios</a></li>
+                    <li><a onClick="logout()" class="logout" >Logout</a></li>
                   <?php }else{  ?>
-                    <li><a class="perfil">Perfil</a></li>
-                    <li><a class="historial" >Historial</a></li>
-                    <li><a class="misArticulos" >Mis Articulos</a></li>
-                    <li><a class="logout" >Logout</a></li>
+                    <li><a onClick="mostrarPerfil()" class="perfil">Perfil</a></li>
+                    <li><a onClick="mostrarHistorial()" class="historial" >Historial</a></li>
+                    <li><a onClick="misArticulos()" class="misArticulos" >Mis Articulos</a></li>
+                    <li><a onClick="logout()" class="logout" >Logout</a></li>
                   <?php } ?>
           		</ul>
         	</div>
