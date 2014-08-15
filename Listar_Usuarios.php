@@ -3,14 +3,14 @@
   	//session_start();
 	//if(isset($_SESSION["usuario_valido"]))
 	//{
-		//$id = $_SESSION["usuario_valido"];
-
+		
 		$query = "SELECT u.id AS id_usuario, nombre_usuario, fecha_nacimiento, sexo, numero_telefonico, correo_electronico,
 				  foto_usuario, c.id, c.nombre_ciudad, p.id, p.nombre_pais 
 				  FROM usuario u, ciudad c, pais p WHERE u.id_ciudad = c.id AND c.id_pais = p.id";
 		$result = mysqli_query($conexion, $query);
 
 	//}
+	//else{ header("location: index.php");}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -95,7 +95,7 @@
 
 			</tr>
 								
-		<?php  } mysqli_free_result($result);	 ?>
+		<?php  } mysqli_free_result($result); ?>
 		
 	</table>
 
