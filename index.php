@@ -25,6 +25,7 @@ $i = 5;
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/estiloLogin.css" />
     <link rel="stylesheet" href="css/globals.css">
+    <link rel="stylesheet" href="css/simplePagination.css">
     <style type="text/css">
   .addCart
     {
@@ -97,6 +98,15 @@ $i = 5;
     <script src="js/modernizr.custom.63321.js"></script>
     <script src="js/bootstrap.js"></script>
 	 <script src="js/globals.js"></script>   
+   <script src="js/simplePagination.js"></script>
+   <script>
+  
+    $(document).ready(function()
+    {         
+
+    });
+
+  </script>   
 </head>
 <body>
 
@@ -246,6 +256,5 @@ $i = 5;
       </div>
  </div>
  <div id="articulos-por-categoria"></div>
-
 </body>
 </html>

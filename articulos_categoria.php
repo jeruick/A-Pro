@@ -5,7 +5,7 @@
  if(isset($_GET["id"]))
  {
     $idcategoria=$_GET["id"];
-    $result=mysqli_query($conexion, "SELECT * FROM articulo where id_categoria='$idcategoria'");
+    $result=mysqli_query($conexion, "SELECT * FROM articulo where id_categoria='$idcategoria' AND cantidad > 0");
     $resultado = mysqli_query($conexion, "SELECT * FROM categoria WHERE id = $idcategoria");
     $categoria = mysqli_fetch_assoc($resultado);
     $contador = 5;
@@ -35,5 +35,34 @@
             </div> 
        <?php } 
     } mysqli_free_result($result); ?>
-
+  <center><div id="selector"></div></center>
  </div>
+ <script type="text/javascript">
+
+  var items = $("#articulos-por-categoria .article");
+
+        var numItems = items.length;
+        var itemsxPage = 10;
+        alert(numItems);
+        if(numItems > 0)
+        {
+        // only show the first 2 (or "first per_page") items initially
+          items.slice(itemsxPage).hide();
+
+          $("#selector").pagination({
+            items: numItems,
+            itemsOnPage: itemsxPage,
+            cssStyle: 'light-theme',
+            onPageClick: function(pageNumber) { // this is where the magic happens
+                // someone changed page, lets hide/show trs appropriately
+                var showFrom = itemsxPage * (pageNumber - 1);
+                var showTo = showFrom + itemsxPage;
+
+                items.hide().slice(showFrom, showTo).show();
+                     // first hide everything, then show for the new page
+            } 
+          });
+         
+        }
+         else{ $("#contenido").html("No se encontraron resultados");}
+      </script>

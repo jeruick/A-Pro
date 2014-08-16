@@ -57,9 +57,9 @@ if(isset($_POST["txtNombre"]))
               $consultaPass = "UPDATE usuario SET contrasena = '$pass' WHERE id= $id"; 
               mysqli_query($conexion, $consultaPass);
               }
-              else{ echo "error al guardar"; }
+              else{ echo "error1"; }
          }
-         else{ echo "error al guardar"; }
+         else{ echo "error"; }
       }
 
 
@@ -103,10 +103,13 @@ $result3= mysqli_query($conexion,$consulta3);
     
 </div>
 <div id="info_usuario">
-  <div id="title"><h3>Informacion de perfil</h3></div>
+  <div id="title" class="informacion_perfil"><center><h2>Informacion de perfil</h2></center></div>
 	<div id="informacion_perfil">
 		<table cellpadding="10" cellspacing="10">
 		  <?php while($usuario = mysqli_fetch_assoc($result)){ ?>
+			<tr>
+				<td colspan="1"><img style="width:200px;" src="<?php echo 'foto_perfil/'.$usuario["foto_usuario"]; ?>" /></td>
+			</tr>
 			<tr>
 				<td>Nombre:</td>
 				<td><?php echo $usuario["nombre_usuario"];?></td>
@@ -197,7 +200,7 @@ $result3= mysqli_query($conexion,$consulta3);
   	<table cellspacing="10" cellpadding="7">
   		<tr>
   			<td>Contrasena Anterior:</td>
-  			<td><input type="password" id="txtPass_anterior" name="txtPass_anterior" onmouseout="Comprobar_Contrasena();"></td>
+  			<td><input type="password" id="txtPass_anterior" name="txtPass_anterior" onBlur="Comprobar_Contrasena();"></td>
   			<td><div id="msj_Wpass"></div></td>
   		</tr>
   		<tr colspan="3">
@@ -206,7 +209,7 @@ $result3= mysqli_query($conexion,$consulta3);
   		</tr>
   		<tr >
   			<td>Confirme Contrasena:</td>
-  			<td><input type="password" id="txtConfirmar_pass" name="txtConfirmar_pass" onmouseout="Nueva_Contrasena();"></td>
+  			<td><input type="password" id="txtConfirmar_pass" name="txtConfirmar_pass" onBlur="Nueva_Contrasena();"></td>
   			<td><div id="msj_WNpass"></div></td>
   		</tr>
   		<tr >
@@ -220,5 +223,98 @@ $result3= mysqli_query($conexion,$consulta3);
 </div>
 
 <footer>&nbsp</footer>
+<script>
+	
+	 var xmlAjax;
+    if(window.XMLHttpRequest) 
+      {
+        xmlAjax = new XMLHttpRequest();
+      } 
+      else 
+      {
+        xmlAjax = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+
+  function filtrar() 
+    { 
+        xmlAjax.onreadystatechange = function()
+        {
+        if(xmlAjax.readyState == 4) 
+        {
+          if(xmlAjax.status == 200) 
+          {//satisfactorio
+
+            var sel = document.getElementById("selCiudad");
+
+            if(xmlAjax.responseText != "")
+            {
+              sel.innerHTML = xmlAjax.responseText;
+            }
+            else
+            {
+              document.getElementById('selCiudad').style.display = 'none';       
+            }
+            
+          }
+          else 
+          {//error
+            alert("error");
+          }
+        }
+      }
+        var consulta = document.getElementById("Slpais").value;
+
+        xmlAjax.open("GET","filtro_ciudades.php?consulta=" + consulta, true);
+        xmlAjax.send();
+    } 
+
+    function Comprobar_Contrasena()
+    { 
+        var pass = document.getElementById("txtPass_anterior").value;
+        var id = document.getElementById("txtId").value; 
+        $.ajax({
+          url: 'ComprobarPass.php',
+          type: 'GET',
+          data: {id: id, pass: pass},
+        })
+        .done(function(response) {
+          $("#msj_Wpass").html(response);
+        });
+    }
+
+	 function Nueva_Contrasena()
+	    {
+	       xmlAjax.onreadystatechange = function()
+	        {
+	        if(xmlAjax.readyState == 4) 
+	        {
+	          if(xmlAjax.status == 200) 
+	          {
+
+	            var div = document.getElementById("msj_WNpass");
+
+	            if(xmlAjax.responseText != "")
+	            {
+	               div.innerHTML = xmlAjax.responseText;
+	            }
+	            else
+	            {
+	              document.getElementById('msj_WNpass').style.display = 'none';       
+	            }
+	            
+	          }
+	          else 
+	          {
+	            alert("error");
+	          }
+	        }
+	      }
+	        var texto1 = document.getElementById("txtPass_nueva").value;
+	        var texto2 = document.getElementById("txtConfirmar_pass").value;
+	        xmlAjax.open("GET","nueva_pass.php?texto1="+ texto1 + "&texto2=" + texto2, true);
+	        xmlAjax.send();
+	    }
+
+</script>
 </body>
 </html>

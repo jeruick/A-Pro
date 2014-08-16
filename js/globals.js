@@ -2,7 +2,7 @@ var articulo;
 var cantidad;
 
 $(document).ready(function(){
-      $('.myCarousel').carousel({interval: 1000});
+      $('#myCarousel').carousel();
       $("#btnLogin").on("click", mostrarForm);
       $("#submit").on("click", verificar_usuario2);
       $(".dropdown-menu li").on("click", seleccionarCategoria);
@@ -99,7 +99,7 @@ $(document).ready(function(){
         $("#articulos-por-categoria").show('fast');
         
       });
-      
+       
     }
 
     function mostrarHistorial()

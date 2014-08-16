@@ -6,116 +6,6 @@ $(document).on("ready", listo);
       $("input[type=file]").nicefileinput();
     }
 
-    var xmlAjax;
-    if(window.XMLHttpRequest) 
-      {
-        xmlAjax = new XMLHttpRequest();
-      } 
-      else 
-      {
-        xmlAjax = new ActiveXObject("Microsoft.XMLHTTP");
-      }
-
-  function filtrar() 
-    { 
-        xmlAjax.onreadystatechange = function()
-        {
-        if(xmlAjax.readyState == 4) 
-        {
-          if(xmlAjax.status == 200) 
-          {//satisfactorio
-
-            var sel = document.getElementById("selCiudad");
-
-            if(xmlAjax.responseText != "")
-            {
-              sel.innerHTML = xmlAjax.responseText;
-            }
-            else
-            {
-              document.getElementById('selCiudad').style.display = 'none';       
-            }
-            
-          }
-          else 
-          {//error
-            alert("error");
-          }
-        }
-      }
-        var consulta = document.getElementById("Slpais").value;
-
-        xmlAjax.open("GET","filtro_ciudades.php?consulta=" + consulta, true);
-        xmlAjax.send();
-    } 
-
-    function Comprobar_Contrasena()
-    { 
-       xmlAjax.onreadystatechange = function()
-        {
-        if(xmlAjax.readyState == 4) 
-        {
-          if(xmlAjax.status == 200) 
-          {
-
-            var div = document.getElementById("msj_Wpass");
-
-            if(xmlAjax.responseText != "")
-            {
-               div.innerHTML = xmlAjax.responseText;
-            }
-            else
-            {
-              document.getElementById('msj_Wpass').style.display = 'none';       
-            }
-            
-          }
-          else 
-          {
-            alert("error");
-          }
-        }
-      }
-        var pass = document.getElementById("txtPass_anterior").value;
-        var id = document.getElementById("txtId").value; 
-        xmlAjax.open("GET","ComprobarPass.php?id="+ id + "&pass=" + pass, true);
-        xmlAjax.send();
-    }
-
- function Nueva_Contrasena()
-    {
-       xmlAjax.onreadystatechange = function()
-        {
-        if(xmlAjax.readyState == 4) 
-        {
-          if(xmlAjax.status == 200) 
-          {
-
-            var div = document.getElementById("msj_WNpass");
-
-            if(xmlAjax.responseText != "")
-            {
-               div.innerHTML = xmlAjax.responseText;
-            }
-            else
-            {
-              document.getElementById('msj_WNpass').style.display = 'none';       
-            }
-            
-          }
-          else 
-          {
-            alert("error");
-          }
-        }
-      }
-        var texto1 = document.getElementById("txtPass_nueva").value;
-        var texto2 = document.getElementById("txtConfirmar_pass").value;
-        xmlAjax.open("GET","nueva_pass.php?texto1="+ texto1 + "&texto2=" + texto2, true);
-        xmlAjax.send();
-    }
-
-
     function esNumero(event)
     {
       
@@ -134,15 +24,18 @@ $(document).on("ready", listo);
         var items = $("#opciones li");
         $.each(items, function(index, val) {
            /* iterate through array or object */
-           alert
+           var nombre = $(val).attr('value');
            if($(val).attr('value') != id)
            {
               $(val).css('color','rgba(255,255,255,0.5)');
+              $("#title").removeClass(nombre);
+
            }
            else
            {
               $(val).css('color','white');
-              $("h3").html($(val).attr("name"));
+              $("h2").html($(val).attr("name"));
+              $("#title").addClass(nombre);
            }
         });
 

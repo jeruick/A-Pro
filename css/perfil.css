@@ -24,7 +24,6 @@
     header
     {
       background: #6AC0EF;
-    
     }
     input[type=text],input[type=password]
       {
@@ -121,7 +120,7 @@
       background: rgba(0,0,0,0.5);
       width: 12%;
       display: inline-block;
-      height: 650px;
+      height: 750px;
       
       
     }
@@ -145,10 +144,32 @@
       cursor: pointer;
       padding-left: 5px; 
     }
+    #informacion_perfil
+    {
+      background: white;
+      box-shadow: rgba(0,0,0,0.2) 0px 0px 10px;
+      margin: 20px auto;
+      width: 50%;
+    }
     #info_usuario
     {
+      background: rgba(245,245,245,1);
     	width: 87.5%;
-      height: 600px;
+      height: 750px;
+    }
+    #editar_perfil
+    {
+        background: white;
+        box-shadow: rgba(0,0,0,0.2) 0px 0px 10px;
+        margin: 10px auto 50px auto;
+        width: 60%
+    }
+    #dv_contrasena
+    {
+      background: white;
+      box-shadow: rgba(0,0,0,0.2) 0px 0px 10px;
+      margin: 50px auto;
+      width: 60%;
     }
      #opciones, #info_usuario
     {
@@ -159,8 +180,25 @@
     #title
     {
       border: 1px solid white;
-      background: white;
-      width: 100%;
+      font-family: Georgia;
+      height: 80px;
+      width: 100%; 
+    }
+    .informacion_perfil
+    {
+      background: url(informacion_perfil.png) no-repeat 90% center, white;
+    }
+    .editar_perfil
+    {
+      background: url(editar_perfil.png) no-repeat 90% center, white;
+    }
+    .dv_contrasena
+    {
+      background: url(dv_contrasena.png) no-repeat 90% center, white;
+    }
+    #title img
+    {
+      border: 1px solid rgba(0,0,0,0.1);
     }
     #title h3
     {

@@ -60,7 +60,7 @@ else
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<title></title>
+	<title>Actualizacion de usuario</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8"> 
    	

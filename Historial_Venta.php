@@ -163,6 +163,7 @@
 		</tr>
 		<tr colspan="7" class="oculto" id="fila">
 			<td>
+				<img src="img/tienda-virtual.jpg">
 				<div>
 					<form id="frmRegistro" action="" method="Post" enctype="multipart/form-data">
  						<table id="tblArticulo" cellpadding="5" cellspacing="0" width="700px" height="400px">
