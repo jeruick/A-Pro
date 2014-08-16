@@ -11,7 +11,7 @@
 		$id = $_SESSION["usuario_valido"];
 
 		$query = "SELECT u.id AS id_usuario, nombre_usuario, fecha_nacimiento, sexo, numero_telefonico, correo_electronico,
-				  foto_usuario, c.id, c.nombre_ciudad, p.id, p.nombre_pais 
+				  foto_usuario, admin, c.id, c.nombre_ciudad, p.id, p.nombre_pais 
 				  FROM usuario u, ciudad c, pais p WHERE u.id_ciudad = c.id AND c.id_pais = p.id";
 		$result = mysqli_query($conexion, $query);
 
@@ -99,6 +99,18 @@
 			cursor: pointer;
 		}
 
+		.textbox { 
+		    background: white; 
+		    border: 1px solid #DDD; 
+		    border-radius: 5px; 
+		    box-shadow: 0 0 5px #DDD inset; 
+		    color: #666; 
+		    outline: none; 
+		    height:25px; 
+		    width: 400px; 
+		   }
+
+
 	</style>
 	<script src="js/jquery.js"></script>
 	<script>
@@ -129,9 +141,10 @@
 </head>
 <body>
 	<header><h1>Administracion de Usuarios</h1></header>
-	<div class="block" style="width:89%; " id="home"><a href="index.php">Home</a></div>
+	<div class="block" style="width:89%; " id="home"><a href="index.php">Home</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+	<label>Buscar:</label>&nbsp&nbsp<input type="Text" id="txtBuscar" name="txtBuscar" onkeyup="Buscar();" class="textbox"></div>
 	<div class="block" style="width:8%; "><img src="img/user.png"><p>Nuevo Usuario</p></div>
-	<table cellpadding="10" cellspacing="0	">
+	<table cellpadding="10" cellspacing="0" id="tblBusqueda">
 		<tr>
 			<th>Foto</th>
 			<th>Nombre</th>
@@ -141,9 +154,10 @@
 			<th>Sexo</th>
 			<th>Ciudad</th>
 			<th>Pais</th>
+			<th>Tipo de Usuario</th>
 			<th colspan= "2">Acciones</th>
 		</tr>
-		<?php while($row = mysqli_fetch_assoc($result)) { ?>		
+		<?php while($row = mysqli_fetch_assoc($result)){ ?>		
 			<tr>
 				<td><img src="<?php echo "foto_perfil/".$row['foto_usuario']; ?>" style="width:100px; height:100px" /></td>
 				<td><p><?php echo $row["nombre_usuario"]; ?></p></td>
@@ -151,16 +165,60 @@
 				<td><p><?php echo $row["numero_telefonico"]; ?></p></td>
 				<td><p><?php echo $row["correo_electronico"]; ?></p></td>
 				<td><p><?php echo $row["sexo"]; ?></p></td>
-				<td><p><?php echo $row["nombre_ciudad"] ?></p></td>
-				<td><p><?php echo $row["nombre_pais"] ?></p></td>
+				<td><p><?php echo $row["nombre_ciudad"]; ?></p></td>
+				<td><p><?php echo $row["nombre_pais"]; ?></p></td>
+				<td><p><?php if($row["admin"] == 1){ echo "Administrador";} else{ echo "Normal"; }?></p></td>
 				<td><p><a id="update" href="modificar_usuario.php?id=<?php echo $row["id_usuario"];?>">Modificar</a></p></td>
 				<td><p><a id="delete" href="listar_usuarios.php?id=<?php echo $row["id_usuario"];?>">Eliminar</a></p></td>
-
-			</tr>
-								
-		<?php  } mysqli_free_result($result);	 ?>
-		
+			</tr>					
+		<?php  }?>	
 	</table>
 
+<script type="text/javascript">
+	
+	 var xmlAjax;
+    if(window.XMLHttpRequest) 
+      {
+        xmlAjax = new XMLHttpRequest();
+      } 
+      else 
+      {
+        xmlAjax = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+
+  function Buscar() 
+    { 
+        xmlAjax.onreadystatechange = function()
+        {
+        if(xmlAjax.readyState == 4) 
+        {
+          if(xmlAjax.status == 200) 
+          {//satisfactorio
+
+            var tbl = document.getElementById("tblBusqueda");
+            var div = document.getElementById("dv1");
+
+            if(xmlAjax.responseText != "")
+            {
+              tbl.innerHTML = xmlAjax.responseText;
+            }
+            else
+            {
+              document.getElementById('tblBusqueda').style.display = 'none'; 
+            }
+            
+          }
+          else 
+          {//error
+            alert("error");
+          }
+        }
+      }
+        var consulta = document.getElementById("txtBuscar").value;
+
+        xmlAjax.open("GET","Filtrar_Usuario.php?consulta=" + consulta, true);
+        xmlAjax.send();
+    } 
+</script>
 </body>
 </html>
