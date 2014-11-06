@@ -1,0 +1,171 @@
+.article
+{
+	border-top: 1px solid rgba(0,0,0,0.2);
+	margin: 10px 0 0 10px;
+	padding-top: 10px;
+	width: 80%;
+}
+
+.details
+{
+	width: 70%;
+}
+.details img 
+{
+	box-shadow: rgba(0,0,0,0.1) 0px 0px 10px;
+	width: 100px;
+	height: 100px;
+}
+.details div 
+{
+	display: inline-block;
+	vertical-align: top;
+	width: 40%;
+}
+
+.quantity
+{
+	width: 20%;
+}
+.quantity .delete
+{
+	background: #FF3F3F;
+	color: rgb(250,250,250);
+	padding: 5px;
+	text-decoration: none;
+}
+.quantity input 
+{
+	width: 80px;
+}
+.quantity, .details
+{
+	display: inline-block;
+	vertical-align: top;
+}
+
+.ventana
+{
+	display: none; <!-- es importante ocultar las ventanas previamente -->
+	font-family:Arial, Helvetica, sans-serif;
+	color:#808080;
+	line-height:28px;
+	font-size:15px;
+	text-align:justify;
+}
+.ventana div 
+{
+	margin-bottom: 5px;	
+}
+.ventana input
+{
+	width: 250px;	
+}
+#articles
+{
+	width: 80%;
+}
+#buyNow
+{
+	background: rgb(0,200,100);
+	color: white;
+	padding: 5px 10px;
+	text-decoration: none;
+}
+#buyNow:hover
+{
+	background: rgb(0,150,150);
+}
+
+#father_content
+{
+	margin-top: 0em;
+}
+#logo_shop
+{
+	
+	width: 18%;
+}
+#logo_shop img
+{
+	width:50%;
+}
+#logo_shop, #articles
+{
+	display: inline-block;
+	vertical-align: top;
+}
+.ventana .in 
+{
+	background: #73b2e6;
+	color:white;
+	margin-left: 5px;
+	padding: 5px 10px;
+	text-decoration: none;
+}
+.ventana .new 
+{
+	background: rgb(0,200,100);
+	color:white;
+	margin-left: 5px;
+	padding: 5px 10px;
+	text-decoration: none;
+}
+
+#total
+{
+	border-top: 1px solid rgba(0,0,0,0.2);
+	width: 80%;
+}
+#total p 
+{
+	color: red;
+	font-family: Times;	
+	font-size: 22px;
+	text-align: right;
+	width: 85%;
+}
+
+@media screen and (max-width: 768px)
+{
+	#articles
+	{
+		width: 100%;
+	}
+	#father_content
+	{
+		width: 100%;
+	}
+	#logo_shop 
+	{
+		display: block;
+		width: 50%;
+	}
+	#logo_shop img
+	{
+		display: block;
+		width: 100px;
+	}
+	#logo_shop p
+	{
+		display: block;
+	}
+	.article
+	{
+		width: 100%;
+	}
+	.details
+	{
+		width: 63%;
+	}
+	.article .details div
+	{
+		display: block;
+		width: 100%;
+	}
+	.quantity 
+	{
+		
+		width: 35%;
+	}
+}
