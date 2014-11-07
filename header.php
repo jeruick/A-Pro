@@ -35,7 +35,6 @@
         </div>
       </div>
       <div class="col-xs-2  col-md-1 pull-left" id="shopping_cart">
-        
           <button class="btn btn-primary" type="button">
               <a href="#" ><img src="icons/carrito.png"></a><span class="badge">0</span>
           </button>

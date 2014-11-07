@@ -4,8 +4,36 @@ $(document).on("ready", listo);
     {
       $("#txtNumeroT").on("keypress", esNumero);
       $("input[type=file]").nicefileinput();
-    }
+      $("#sbGuardarPass").on('click',  function(event) {
 
+        if($("#txtPass_anterior").val() == "" || $("#txtPass_nueva").val() == "" || $("#txtConfirmar_pass").val() == "")
+        {
+          alert("Debes completar todos los campos");
+          event.preventDefault();
+        }
+        else
+        {
+          if( $("#txtPass_nueva").val() !== $("#txtConfirmar_pass").val()) 
+          {
+            alert("Las contraseñas no coinciden");
+            event.preventDefault();
+          }
+        }          
+        
+      });
+      $(window).on('load', redimensionar);
+      $(window).on('resize', redimensionar);
+    }
+    function redimensionar() 
+    {
+      var win = $(window).width(); //this = window
+            
+      if (win < 768) 
+      {
+
+        $("#foto_usuario").attr('colspan', 2);
+      }
+    }
     function esNumero(event)
     {
       

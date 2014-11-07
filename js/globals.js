@@ -25,7 +25,7 @@ $(document).ready(function(){
       $(".misArticulos").on("click",misArticulos);
       $(".usuarios").on("click", listarUsuarios);
       $("#userPhoto").on('click',  mostrarMenuUsuario);
-
+      
       $(window).on('resize', function(){
           var width = $("#txtBusqueda").css('width');
           $("#coincidencias").css('width', width);
@@ -257,7 +257,7 @@ $(document).ready(function(){
     
     function verCarrito()
     {
-      $(location).attr('href','ver_carrito.php');
+      $(location).attr('href','VerCarrito.php');
     }
     
     function logout()

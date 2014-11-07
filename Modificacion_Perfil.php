@@ -1,11 +1,12 @@
 <?php
-require_once("conexion.php");
+require_once("clases/Usuario.php");
+require_once("clases/Conexion.php");
 session_start();
 if(isset($_SESSION["usuario_valido"]))
 {
 
 	$id = $_SESSION["usuario_valido"];  
-
+	$usuario = new Usuario(); 
 	// ACTUALIZACION DE PERFIL
 if(isset($_POST["txtNombre"]))
 {
@@ -17,62 +18,35 @@ if(isset($_POST["txtNombre"]))
 		$numero_t = $_POST["txtNumeroT"];
 		$ciudad = $_POST["Slciudad"];
 		$prueba = strtotime($fecha_nac);
-
 		$nacimiento = date("Y-m-d", $prueba);
-	
+		
 		// SI ACTUALIZA FOTO 
 	    if($_FILES["txtFoto"]["name"] != "")
 	    {
-			$foto = $_FILES["txtFoto"]["name"];
-
-			move_uploaded_file($_FILES["txtFoto"]["tmp_name"], "foto_perfil/". $_FILES["txtFoto"]["name"]);
-
-			$query = "UPDATE usuario SET nombre_usuario = '$nombre', fecha_nacimiento = '$nacimiento', sexo='$genero', numero_telefonico = '$numero_t',
-						correo_electronico ='$correo', foto_usuario ='$foto', id_ciudad = $ciudad WHERE id= $id";
-		    mysqli_query($conexion, $query);		    	 
+	    	$foto = $_FILES["txtFoto"];
+			$usuario->ActualizarInformacion($id, $nombre, $nacimiento, $genero, $numero_t, $correo, $foto,$ciudad);	
 	    }
-	    else if($_FILES["txtFoto"]["name"] == "")
+	    else
 	    {
-	    	$query = "UPDATE usuario SET nombre_usuario = '$nombre', fecha_nacimiento = '$nacimiento', sexo='$genero', numero_telefonico = '$numero_t',
-						correo_electronico='$correo', id_ciudad= $ciudad WHERE id= $id";
-
-			mysqli_query($conexion, $query);
+	    	$usuario->ActualizarInformacion($id, $nombre, $nacimiento, $genero, $numero_t, $correo,null,$ciudad);		
 	    }
 }
 
 // ACTUALIZACION DE CONTRASENA
        if(isset($_POST["txtPass_nueva"]) && isset($_POST["txtConfirmar_pass"]) && isset($_POST["txtPass_anterior"]))
       {  
-        $con_pass = "SELECT contrasena FROM usuario WHERE id= $id";
-        $fila = mysqli_query($conexion, $con_pass);
-        $Oldpass = md5($_POST["txtPass_anterior"]); 
-        $filas = mysqli_fetch_assoc($fila);
-
-        if($filas["contrasena"] == $Oldpass)
-        {
-             if($_POST["txtPass_nueva"] == $_POST["txtConfirmar_pass"])
-              {
-                $pass = md5($_POST["txtConfirmar_pass"]);
-
-              $consultaPass = "UPDATE usuario SET contrasena = '$pass' WHERE id= $id"; 
-              mysqli_query($conexion, $consultaPass);
-              }
-              else{ echo "error1"; }
-         }
-         else{ echo "error"; }
+      	$old_pass = $_POST["txtPass_anterior"];
+      	$new_pass = $_POST["txtPass_nueva"];
+      	if ($old_pass === $new_pass) 
+      	{
+      		$usuario->ActualizarPassword($id, $new_pass);
+      	}
       }
 
-
-   $consulta = "SELECT nombre_usuario, fecha_nacimiento, sexo, numero_telefonico, foto_usuario,
-				correo_electronico, nombre_ciudad, nombre_pais, id_pais, id_ciudad
-				FROM usuario, ciudad, pais 
-				WHERE usuario.id = $id AND usuario.id_ciudad = ciudad.id AND ciudad.id_pais = pais.id";
-
-	$result = mysqli_query($conexion, $consulta);
-
-
+      $result = $usuario->ObtenerInformacionUsuario($id);
 }
-else{
+else
+{
 
 	header("location: index.php");
 }
@@ -86,12 +60,14 @@ $result3= mysqli_query($conexion,$consulta3);
 <html>
 <head>
 	<title>Perfil de usuario</title>
-  <meta charset="utf-8" />
-  <link rel="stylesheet" href="css/globals.css">
-	<link rel="stylesheet" type="text/css" href="css/perfil.css">
-  <script src="js/jquery.js"></script>
-  <script src="js/nicefileinput.js"></script>
-  <script src="js/perfil.js"></script>
+  		<meta charset="utf-8" />
+	  	<link rel="stylesheet" href="css/globals.css">
+
+		<link rel="stylesheet" type="text/css" href="css/perfil.css">
+		
+	  <script src="js/jquery.js"></script>
+	  <script src="js/nicefileinput.js"></script>
+	  <script src="js/perfil.js"></script>
 </head>
 <body>
   <header><a href="index.php"><img src="img/home1.png"></a></header>
@@ -104,11 +80,11 @@ $result3= mysqli_query($conexion,$consulta3);
 </div>
 <div id="info_usuario">
   <div id="title" class="informacion_perfil" ><center><h2>Informacion de perfil</h2></center></div>
-	<div id="informacion_perfil">
-		<table cellpadding="10" cellspacing="10">
+	<div id="informacion_perfil" class="table-responsive">
+		<table cellpadding="10" cellspacing="10" class="table ">
 		  <?php while($usuario = mysqli_fetch_assoc($result)){ ?>
 			<tr>
-				<td colspan="1"><img style="width:200px;" src="<?php echo 'foto_perfil/'.$usuario["foto_usuario"]; ?>" /></td>
+				<td id="foto_usuario" colspan="1"><img style="width:200px;" src="<?php echo 'foto_perfil/'.$usuario["foto_usuario"]; ?>" /></td>
 			</tr>
 			<tr>
 				<td>Nombre:</td>
@@ -137,9 +113,9 @@ $result3= mysqli_query($conexion,$consulta3);
 		</table>
   	</div>
  
-   <div id="editar_perfil" class="oculto">
+   <div id="editar_perfil" class="oculto" class="table-responsive">
    <form id="frmActualizar" action=" " method="Post" enctype="multipart/form-data">
-	<table cellpadding="10" cellspacing="10">
+	<table cellpadding="10" cellspacing="10" class="responsive">
 			<tr>
 				<td>Nombre:</td>
 				<td><input type="Text" id="txtNombre" name="txtNombre" value="<?php echo $usuario["nombre_usuario"];?>"/></td>
@@ -273,12 +249,20 @@ $result3= mysqli_query($conexion,$consulta3);
         var pass = document.getElementById("txtPass_anterior").value;
         var id = document.getElementById("txtId").value; 
         $.ajax({
-          url: 'ComprobarPass.php',
+          url: 'clases/comprobar_pass.php',
           type: 'GET',
           data: {id: id, pass: pass},
         })
         .done(function(response) {
-          $("#msj_Wpass").html(response);
+        	if (response != "") 
+        	{
+        		$("#msj_Wpass").html(response);
+        	}
+        	else
+        	{
+        		$("#msj_Wpass").html("");
+        	}
+          
         });
     }
 
@@ -311,7 +295,7 @@ $result3= mysqli_query($conexion,$consulta3);
 	      }
 	        var texto1 = document.getElementById("txtPass_nueva").value;
 	        var texto2 = document.getElementById("txtConfirmar_pass").value;
-	        xmlAjax.open("GET","nueva_pass.php?texto1="+ texto1 + "&texto2=" + texto2, true);
+	        xmlAjax.open("GET","clases/nueva_pass.php?texto1="+ texto1 + "&texto2=" + texto2, true);
 	        xmlAjax.send();
 	    }
 
