@@ -105,6 +105,11 @@ $(document).ready(function(){
         $("#articulos-por-categoria").html(response);
 
         $("#articulos-por-categoria").show('fast');
+       
+        if($(window).width() < 720)
+        {
+        	$("#boton-toggle").trigger('click');	
+        }
 
         
       });

@@ -52,7 +52,7 @@
             <input type="email" class="form-control"  name="email" id="email" placeholder="Email" required>
             <input type="password" class="form-control"  name="password" id="password" placeholder="Password" required>
             <button class="btn btn-primary btn-block" type="submit"><span class="glyphicon glyphicon-log-in"></span> Ingresar</button>  
-            <a href="" class="btn btn-success btn-block"><span class="glyphicon glyphicon-edit"></span>Registrar</a>
+            <a href="registro_usuario.php" class="btn btn-success btn-block"><span class="glyphicon glyphicon-edit"></span>Registrar</a>
           </form>
         </div>
 EOT;

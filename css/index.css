@@ -109,7 +109,7 @@ footer
   
 @media screen and (max-width: 768px)
 {
-
+  
   #contenedor
   {
     width: 100%;
@@ -123,10 +123,21 @@ footer
   }
   #logo img
   {
-    height: 50px;
+    height: 40px;
     width: 100px;
   }
+  #myCarousel
+  {
+    width: 80%;
+    margin: 10px auto;
 
+  }
+  #myCarousel img
+  {
+    margin: 0 auto;
+    height: 200px;
+  }
+  
   .top_articles
   {
     height: 150px;

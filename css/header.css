@@ -133,4 +133,28 @@ a.account {
   {
     padding: 0.5em;
   }
+  #buscar-control
+  {
+
+    margin: 0;
+  }
+  #buscar-control input, #buscar-control button
+  {
+    height: 30px;
+  }
+  #searchButton img 
+  {
+    top: -2px;
+    position: relative;
+    width: 15px;
+  }
+  #shopping_cart button
+  {
+    height:35px;
+    
+  }
+  #shopping_cart img
+  {
+    width: 20px;
+  }
 }

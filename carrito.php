@@ -1,5 +1,5 @@
 <?php 
-	require_once("conexion.php");
+	require_once("clases/Conexion.php");
 
 	session_start();
 	if(isset($_POST['id'])) // Request para modificar el numero de articulos que el usuario desea comprar 
